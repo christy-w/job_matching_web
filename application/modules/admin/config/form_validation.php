@@ -25,13 +25,13 @@ $config = array(
 	// Create User
 	'user/create' => array(
 		array(
-			'field'		=> 'first_name',
-			'label'		=> 'First Name',
+			'field'		=> 'name_zh',
+			'label'		=> 'Chinese ame',
 			'rules'		=> 'required',
 		),
 		array(
-			'field'		=> 'last_name',
-			'label'		=> 'Last Name',
+			'field'		=> 'name_en',
+			'label'		=> 'English Name',
 			'rules'		=> 'required',
 		),
 		array(
@@ -43,6 +43,11 @@ $config = array(
 			'field'		=> 'email',
 			'label'		=> 'Email',
 			'rules'		=> 'required|valid_email|is_unique[users.email]',
+		),
+		array(
+			'field'		=> 'phone',
+			'label'		=> 'Phone',
+			'rules'		=> 'required|is_unique[users.phone]',
 		),
 		array(
 			'field'		=> 'password',

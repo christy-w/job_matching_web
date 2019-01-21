@@ -12,7 +12,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @SWG\Swagger(
  *	@SWG\Info(
  *		version="0.1",
- *		title="CI Bootstrap 3 API",
+ *		title="FYP",
  *		description="API Documentation",
  *		termsOfService="",
  *		@SWG\Contact(

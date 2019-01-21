@@ -10,10 +10,11 @@
 			<div class="box-body">
 				<?php echo $form->open(); ?>
 
-					<?php echo $form->bs3_text('First Name', 'first_name'); ?>
-					<?php echo $form->bs3_text('Last Name', 'last_name'); ?>
+					<?php echo $form->bs3_text('Chinese Name', 'name_zh'); ?>
+					<?php echo $form->bs3_text('English Name', 'name_en'); ?>
 					<?php echo $form->bs3_text('Username', 'username'); ?>
 					<?php echo $form->bs3_text('Email', 'email'); ?>
+					<?php echo $form->bs3_text('Phone', 'phone'); ?>
 
 					<?php echo $form->bs3_password('Password', 'password'); ?>
 					<?php echo $form->bs3_password('Retype Password', 'retype_password'); ?>

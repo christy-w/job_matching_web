@@ -69,9 +69,10 @@ $config['ci_bootstrap'] = array(
 			'url'		=> 'user',
 			'icon'		=> 'fa fa-users',
 			'children'  => array(
-				'List'			=> 'user',
-				'Create'		=> 'user/create',
-				'User Groups'	=> 'user/group',
+				'List'					=> 'user',
+				'User Groups'			=> 'user/group',
+				'Applicant Users'		=> 'user/applicant',
+				'Employer Users'		=> 'user/employer',
 			)
 		),
 		'panel' => array(
@@ -83,6 +84,16 @@ $config['ci_bootstrap'] = array(
 				'Create Admin User'		=> 'panel/admin_user_create',
 				'Admin User Groups'		=> 'panel/admin_user_group',
 			)
+		),
+		'district' => array(
+			'name'		=> 'Districts',
+			'url'		=> 'district',
+			'icon'		=> 'fa fa-cog',
+		),
+		'industry' => array(
+			'name'		=> 'Industries',
+			'url'		=> 'industry',
+			'icon'		=> 'fa fa-cog',
 		),
 		'util' => array(
 			'name'		=> 'Utilities',

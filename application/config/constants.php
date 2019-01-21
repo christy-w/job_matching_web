@@ -108,4 +108,5 @@ define('CI_BOOTSTRAP_REPO',			'https://github.com/waifung0207/ci_bootstrap_3');
 define('CI_BOOTSTRAP_VERSION',		'Build 20170324');	// will follow semantic version (e.g. v1.x.x) after first stable launch
 
 // Upload paths
-//define('UPLOAD_COVER_PHOTO',	'assets/uploads/cover_photos');
+define('UPLOAD_APPLICANT',	'assets/uploads/applicant');
+define('UPLOAD_EMPLOYER',	'assets/uploads/employer');
