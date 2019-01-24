@@ -12,10 +12,11 @@ class User extends Admin_Controller {
 	// Frontend User CRUD
 	public function index()
 	{
+		$this->load->model('users_groups_model', 'users_groups');
 		$crud = $this->generate_crud('users');
-		$crud->columns('groups', 'phone', 'email', 'name_zh', 'name_en', 'active');
-		$this->unset_crud_fields('ip_address', 'last_login');
-
+		$crud->columns('groups', 'username', 'mobile', 'email', 'active');
+		$this->unset_crud_fields('ip_address', 'last_login', 'update_mobile', 'update_mobile_code');
+		
 		// only webmaster and admin can change member groups
 		if ($crud->getState()=='list' || $this->ion_auth->in_group(array('webmaster', 'admin')))
 		{
@@ -29,71 +30,64 @@ class User extends Admin_Controller {
 		}
 
 		// disable direct create / delete Frontend User
+		$crud->unset_add();
 		$crud->unset_delete();
 
 		$this->mPageTitle = 'Users';
 		$this->render_crud();
 	}
 
-	// Create Frontend User
-	// public function create()
-	// {
-	// 	$form = $this->form_builder->create_form();
+	// Create user of target group
+	public function create_by_group($group_id)
+	{
+		$this->load->model('group_model', 'groups');
+		$group = $this->groups->get($group_id);
 
-	// 	if ($form->validate())
-	// 	{
-	// 		// passed validation
-	// 		$username = $this->input->post('username');
-	// 		$email = $this->input->post('email');
-	// 		$password = $this->input->post('password');
-	// 		$identity = empty($username) ? $email : $username;
-	// 		$additional_data = array(
-	// 			'name_zh'	=> $this->input->post('name_zh'),
-	// 			'name_en'		=> $this->input->post('name_en'),
-	// 		);
-	// 		$groups = $this->input->post('groups');
+		$form = $this->form_builder->create_form();
 
-	// 		// [IMPORTANT] override database tables to update Frontend Users instead of Admin Users
-	// 		$this->ion_auth_model->tables = array(
-	// 			'users'				=> 'users',
-	// 			'groups'			=> 'groups',
-	// 			'users_groups'		=> 'users_groups',
-	// 			'login_attempts'	=> 'login_attempts',
-	// 		);
+		if ($form->validate())
+		{
+			$mobile = $this->input->post('mobile');
 
-	// 		// proceed to create user
-	// 		$user_id = $this->ion_auth->register($identity, $password, $email, $additional_data, $groups);			
-	// 		if ($user_id)
-	// 		{
-	// 			// success
-	// 			$messages = $this->ion_auth->messages();
-	// 			$this->system_message->set_success($messages);
+			// [IMPORTANT] override database tables to update Frontend Users instead of Admin Users
+			$this->ion_auth_model->tables = array(
+				'users'				=> 'users',
+				'groups'			=> 'groups',
+				'users_groups'		=> 'users_groups',
+				'login_attempts'	=> 'login_attempts',
+			);
 
-	// 			// directly activate user
-	// 			$this->ion_auth->activate($user_id);
-	// 		}
-	// 		else
-	// 		{
-	// 			// failed
-	// 			$errors = $this->ion_auth->errors();
-	// 			$this->system_message->set_error($errors);
-	// 		}
-	// 		refresh();
-	// 	}
+			// proceed to create user (with random password)
+			$this->load->helper('string');
+			$user_id = $this->ion_auth->register($mobile, random_string('alnum', 10), '', array('mobile' => $mobile), array($group_id));
 
-	// 	// get list of Frontend user groups
-	// 	$this->load->model('group_model', 'groups');
-	// 	$this->mViewData['groups'] = $this->groups->get_all();
-	// 	$this->mPageTitle = 'Create User';
-
-	// 	$this->mViewData['form'] = $form;
-	// 	$this->render('user/create');
-	// }
+			if ($user_id)
+			{
+				// success
+				$messages = $this->ion_auth->messages();
+				$this->system_message->set_success($messages);
+			}
+			else
+			{
+				// failed
+				$errors = $this->ion_auth->errors();
+				$this->system_message->set_error($errors);
+			}
+			refresh();
+		}
+		
+		$this->mPageTitle = 'Create '.humanize($group->name).' User';
+		$this->mViewData['form'] = $form;
+		$this->render('user/create_by_group');
+	}
 
 	// User Groups CRUD
 	public function group()
 	{
 		$crud = $this->generate_crud('groups');
+		$crud->unset_add();
+		$crud->unset_edit();
+		$crud->unset_delete();
 		$this->mPageTitle = 'User Groups';
 		$this->render_crud();
 	}
@@ -139,36 +133,5 @@ class User extends Admin_Controller {
 		$this->mViewData['form'] = $form;
 		$this->mPageTitle = 'Reset User Password';
 		$this->render('user/reset_password');
-	}
-
-	public function applicant() {
-		$crud = $this->generate_crud('applicant_users');
-		$crud->set_relation('user_id', 'users', 'phone');
-		$crud->set_relation('district_id', 'districts', 'name_en');
-		
-		$crud->display_as('user_id', 'User');
-		$crud->display_as('district_id', 'District');
-		$crud->display_as('dob', 'DOB');
-
-		$crud->set_field_upload('thumbnail_url', UPLOAD_APPLICANT);
-
-		$this->mPageTitle = 'Applicant Users';
-		$this->render_crud();
-	}
-
-	public function employer() {
-		$crud = $this->generate_crud('employer_users');
-		$crud->set_relation('user_id', 'users', 'phone');
-		$crud->set_relation('district_id', 'districts', 'name_en');
-		$crud->set_relation('industry_id', 'industries', 'name_en');
-		
-		$crud->display_as('user_id', 'User');
-		$crud->display_as('district_id', 'District');
-		$crud->display_as('industry_id', 'Industry');
-
-		$crud->set_field_upload('thumbnail_url', UPLOAD_EMPLOYER);
-
-		$this->mPageTitle = 'Employer Users';
-		$this->render_crud();
 	}
 }

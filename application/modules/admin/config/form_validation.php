@@ -23,41 +23,50 @@ $config = array(
 	),
 
 	// Create User
-	'user/create' => array(
+	// 'user/create' => array(
+	// 	array(
+	// 		'field'		=> 'first_name',
+	// 		'label'		=> 'First Name',
+	// 		'rules'		=> 'required',
+	// 	),
+	// 	array(
+	// 		'field'		=> 'last_name',
+	// 		'label'		=> 'Last Name',
+	// 		'rules'		=> 'required',
+	// 	),
+	// 	/*array(
+	// 		'field'		=> 'username',
+	// 		'label'		=> 'Username',
+	// 		'rules'		=> 'is_unique[users.username]',				// use email as username if empty
+	// 	),*/
+	// 	array(
+	// 		'field'		=> 'mobile',
+	// 		'label'		=> 'Mobile',
+	// 		'rules'		=> 'required|numeric|is_unique[users.mobile]',
+	// 	),
+	// 	array(
+	// 		'field'		=> 'email',
+	// 		'label'		=> 'Email',
+	// 		'rules'		=> 'valid_email|is_unique[users.email]',
+	// 	),
+	// 	array(
+	// 		'field'		=> 'password',
+	// 		'label'		=> 'Password',
+	// 		'rules'		=> 'required',
+	// 	),
+	// 	array(
+	// 		'field'		=> 'retype_password',
+	// 		'label'		=> 'Retype Password',
+	// 		'rules'		=> 'required|matches[password]',
+	// 	),
+	// ),
+	
+	// Create User by group
+	'user/create_by_group' => array(
 		array(
-			'field'		=> 'name_zh',
-			'label'		=> 'Chinese ame',
-			'rules'		=> 'required',
-		),
-		array(
-			'field'		=> 'name_en',
-			'label'		=> 'English Name',
-			'rules'		=> 'required',
-		),
-		array(
-			'field'		=> 'username',
-			'label'		=> 'Username',
-			'rules'		=> 'is_unique[users.username]',				// use email as username if empty
-		),
-		array(
-			'field'		=> 'email',
-			'label'		=> 'Email',
-			'rules'		=> 'required|valid_email|is_unique[users.email]',
-		),
-		array(
-			'field'		=> 'phone',
-			'label'		=> 'Phone',
-			'rules'		=> 'required|is_unique[users.phone]',
-		),
-		array(
-			'field'		=> 'password',
-			'label'		=> 'Password',
-			'rules'		=> 'required',
-		),
-		array(
-			'field'		=> 'retype_password',
-			'label'		=> 'Retype Password',
-			'rules'		=> 'required|matches[password]',
+			'field'		=> 'mobile',
+			'label'		=> 'Mobile',
+			'rules'		=> 'required|numeric|is_unique[users.mobile]',
 		),
 	),
 

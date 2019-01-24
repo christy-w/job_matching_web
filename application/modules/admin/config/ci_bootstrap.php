@@ -67,12 +67,11 @@ $config['ci_bootstrap'] = array(
 		'user' => array(
 			'name'		=> 'Users',
 			'url'		=> 'user',
-			'icon'		=> 'fa fa-users',
+			'icon'		=> 'fa fa-user',
 			'children'  => array(
-				'List'					=> 'user',
-				'User Groups'			=> 'user/group',
-				'Applicant Users'		=> 'user/applicant',
-				'Employer Users'		=> 'user/employer',
+				'List'						=> 'user',
+				'Create Employer User'		=> 'user/create_by_group/1',
+				'Create Applicant User'		=> 'user/create_by_group/2',
 			)
 		),
 		'panel' => array(

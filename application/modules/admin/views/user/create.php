@@ -6,15 +6,11 @@
 		<div class="box box-primary">
 			<div class="box-header">
 				<h3 class="box-title">User Info</h3>
-			</div>
 			<div class="box-body">
 				<?php echo $form->open(); ?>
 
-					<?php echo $form->bs3_text('Chinese Name', 'name_zh'); ?>
-					<?php echo $form->bs3_text('English Name', 'name_en'); ?>
-					<?php echo $form->bs3_text('Username', 'username'); ?>
+					<?php echo $form->bs3_text('Nickname', 'nickname'); ?>
 					<?php echo $form->bs3_text('Email', 'email'); ?>
-					<?php echo $form->bs3_text('Phone', 'phone'); ?>
 
 					<?php echo $form->bs3_password('Password', 'password'); ?>
 					<?php echo $form->bs3_password('Retype Password', 'retype_password'); ?>
