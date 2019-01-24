@@ -32,22 +32,22 @@ class Auth extends API_Controller {
 	public function sign_up_post()
 	{
 		// POST fields
-		// $nickname = $this->post('nickname');
 		$password = $this->post('password');
 		$email = $this->post('email');
-		$mobile = (string)$this->post('mobile');
-
-		// if mobile have already registered
-		$count = $this->users->count_by(array('mobile' => $mobile, 'active' => 1));
-		if ($count>0)
-		{
+        $mobile = (string)$this->post('mobile');
+        
+        // check if sign up mobile exists
+        $count = $this->users->count_by(array('mobile' => $mobile, 'active' => 1));
+        // mobile is registered and activated, return
+        if ($count>0)
+		{   
 			$this->error('mobile_registered');
 			return;
 		}
 
-        // if mobile have not yet registered
         $user = $this->users->get_by(array('mobile' => $mobile, 'active' => 0));
         if ( !empty($user)) {
+            // if mobile is registered but not activate
             if ( !empty($user->activated_at) )
             {
                 // if user was activated before, but set to "inactive" manually by Admin user
@@ -57,10 +57,11 @@ class Auth extends API_Controller {
 
             // User is not activated, Update existing user
             $data = array(
+				'mobile'	=> $mobile,
                 'email'		=> $email,
-                // 'nickname'	=> $nickname,
                 'password'	=> $password
-            );
+			);
+			
             $this->form_validation->set_data($data);
             if ($this->form_validation->run('auth/sign_up') == TRUE)
             {	
@@ -68,10 +69,11 @@ class Auth extends API_Controller {
 
                 if ($updated)
                 {
-                    // success - send activation code
-                    $code = $this->users->send_activation_code($user->id, $mobile);
-                    $result = array('message' => $this->ion_auth->messages(), 'mobile' => $mobile, 'code' => $code);
-                    $this->success($result);
+					// success - send activation code
+					$code = random_string('numeric', 4);
+					$this->users->update($user->id, array('activation_code' => $code, 'active' => 0, 'password' => $password));
+					$result = array('message' => $this->ion_auth->messages(), 'mobile' => $mobile, 'code' => $code);
+					$this->success($result);
                 }
                 else
                 {
@@ -87,6 +89,7 @@ class Auth extends API_Controller {
         }
 		else
 		{
+            // register the mobile
             $this->load->model('group_model', 'groups');
             $applicant_group_id = 2;
             $applicant_group = $this->groups->get($applicant_group_id);
@@ -99,25 +102,30 @@ class Auth extends API_Controller {
 				'login_attempts'	=> 'login_attempts',
             );
             
-            // proceed to create user (with random password)
-			$this->load->helper('string');
-			$user_id = $this->ion_auth->register($mobile, random_string('alnum', 10), '', array('mobile' => $mobile), array($applicant_group_id));
-
-			if ($user_id)
+			// proceed to create applicant user (with entered password)
+			// User is not activated, Update existing user
+            $data = array(
+				'mobile'	=> $mobile,
+                'email'		=> $email,
+                'password'	=> $password
+			);
+			
+            $this->form_validation->set_data($data);
+			if ($this->form_validation->run('auth/sign_up') == TRUE) 
 			{
-				// success
-                $code = random_string('numeric', 4);
-                $this->users->update($user_id, array('activation_code' => $code));
-                $result = array('message' => $this->ion_auth->messages(), 'mobile' => $mobile, 'code' => $code);
-                print_r('code', $code);
-                $this->success($result);
+				$user_id = $this->ion_auth->register($mobile, $password, $mobile, array('mobile' => $mobile), array($applicant_group_id));
+				if ($user_id)
+				{
+					// success
+					$code = random_string('numeric', 4);
+					$this->users->update($user_id, array('activation_code' => $code, 'active' => 0, 'password' => $password));
+					$result = array('message' => $this->ion_auth->messages(), 'mobile' => $mobile, 'code' => $code);
+					$this->success($result);
+				}
 			}
 			else
 			{
-				// failed
-				// $errors = $this->ion_auth->errors();
-				// $this->system_message->set_error($errors);
-                $this->error(validation_errors());
+				$this->error(validation_errors());
 			}
 		}
 	}
@@ -164,7 +172,7 @@ class Auth extends API_Controller {
 		if ($activation)
 		{
 			// note down activation timestamp
-			$this->users->update($user->id, array('activated_at' => date('Y-m-d H:i:s')));
+			$this->users->update($user->id, array('activated_at' => date('Y-m-d H:i:s'), 'active' => 1));
 
 			// return user data (get latest data after update)
 			$user = $this->users->get($user->id);
@@ -356,13 +364,6 @@ class Auth extends API_Controller {
 		unset($user->remarks);
 		unset($user->remember_code);
 
-		// decode JSON fields before return
-		$fields = array('living_with', 'emergencies');
-		foreach ($fields as $field)
-		{
-			if ( !empty($user->$field) )
-				$user->$field = json_decode($user->$field);
-		}
 		
 		// append user group(s)
 		$user->groups = $this->ion_auth->get_users_groups($user->id)->result();

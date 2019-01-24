@@ -7,19 +7,82 @@
 
 $config = array(
 
-	/** Example: 
-	'auth/login' => array(
+
+	// Sign Up
+	'auth/sign_up' => array(
+		array(
+		 	'field'		=> 'mobile',
+		 	'label'		=> 'Mobile',
+		 	'rules'		=> 'required',
+		),
 		array(
 			'field'		=> 'email',
 			'label'		=> 'Email',
-			'rules'		=> 'required|valid_email',
+			'rules'		=> 'required',
+		),
+		array(
+			'field'		=> 'password',
+			'label'		=> 'Password',
+			'rules'		=> 'required|min_length[6]',
+		),
+	),
+
+	// Activate
+	'auth/login' => array(
+		array(
+			'field'		=> 'mobile',
+			'label'		=> 'Mobile',
+			'rules'		=> 'required',
+		),
+		array(
+			'field'		=> 'code',
+			'label'		=> 'Code',
+			'rules'		=> 'required|min_length[4]',
+		),
+	),
+
+	// Login
+	'auth/login' => array(
+		array(
+			'field'		=> 'mobile',
+			'label'		=> 'Mobile',
+			'rules'		=> 'required',
 		),
 		array(
 			'field'		=> 'password',
 			'label'		=> 'Password',
 			'rules'		=> 'required',
 		),
-	),*/
+	),
+
+	// Forgot Password
+	'auth/forgot_password' => array(
+		array(
+			'field'		=> 'mobile',
+			'label'		=> 'Mobile',
+			'rules'		=> 'required',
+		),
+	),
+
+	// Reset Password
+	'auth/reset_password' => array(
+		array(
+			'field'		=> 'code',
+			'label'		=> 'Code',
+			'rules'		=> 'required|min_length[4]',
+		),
+		array(
+			'field'		=> 'password',
+			'label'		=> 'Password',
+			'rules'		=> 'required|min_length[6]',
+		),
+		array(
+			'field'		=> 'retype_password',
+			'label'		=> 'Retype Password',
+			'rules'		=> 'required|matches[password]',
+		),
+	),
+
 );
 
 /**
