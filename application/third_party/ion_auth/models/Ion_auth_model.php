@@ -473,7 +473,7 @@ class Ion_auth_model extends CI_Model
 
 			$data = array(
 			    'activation_code' => NULL,
-			    'active'          => 1
+			    'active'          => 0
 			);
 
 			$this->trigger_events('extra_where');
@@ -483,7 +483,7 @@ class Ion_auth_model extends CI_Model
 		{
 			$data = array(
 			    'activation_code' => NULL,
-			    'active'          => 1
+			    'active'          => 0
 			);
 
 
