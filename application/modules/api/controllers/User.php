@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Me extends API_Controller {
+class User extends API_Controller {
 
 	public function __construct()
 	{
@@ -76,7 +76,21 @@ class Me extends API_Controller {
 		$this->load->model('group_model', 'groups');
 		$user_group = $this->groups->get_by_user_id($this->mUser->id);
 		$data->user_group = $user_group[0]->name;
-		
+
+		$group_id = $user_group[0]->id;
+		if ($group_id == 1) 
+		{
+			// Employer
+			$this->load->model('employer_user_model', 'employers');
+			$user_info = $this->employers->get_by(array('user_id' => $this->mUser->id));
+		}
+		else if ($group_id == 2) 
+		{
+			// Applicant
+			$this->load->model('applicant_user_model', 'applicants');
+			$user_info = $this->applicants->get_by(array('user_id' => $this->mUser->id));
+		}
+		$data->info = $user_info;
 		// output result
 		$this->response($data);
 	}
