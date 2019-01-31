@@ -170,13 +170,8 @@ class Auth extends API_Controller {
 
 		if ($activation)
 		{
-			print_r($user);
-			exit();
 			// note down activation timestamp
 			$this->users->update($user->id, array('activated_at' => date('Y-m-d H:i:s'), 'active' => 1));
-			// $this->load->model('employer_user_model', 'employers');
-			
-			// $this->users->update($user->id, array('activated_at' => date('Y-m-d H:i:s'), 'is_activated' => 1));
 
 			// return user data (get latest data after update)
 			$user = $this->users->get($user->id);

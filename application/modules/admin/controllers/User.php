@@ -41,8 +41,7 @@ class User extends Admin_Controller {
 	{
 		$this->load->model('employer_user_model', 'employers');
 		$crud = $this->generate_crud('employer_users');
-		$crud->columns('user_id', 'name_en', 'email', 'is_activated', 'status');
-		$this->unset_crud_fields('user_id', 'is_activated');
+		$crud->columns('user_id', 'name_en', 'name_zh', 'status');
 
 		$crud->set_relation('industry_id', 'industries', 'name_en');
 		$crud->set_relation('district_id', 'districts', 'name_en');
@@ -60,7 +59,7 @@ class User extends Admin_Controller {
 	{
 		$this->load->model('applicant_user_model', 'applicants');
 		$crud = $this->generate_crud('applicant_users');
-		$crud->columns('user_id', 'name_en', 'email', 'is_activated', 'status');
+		$crud->columns('user_id', 'name_en', 'name_zh', 'status');
 
 		// disable direct create / delete Frontend User
 		$crud->unset_add();
