@@ -116,6 +116,7 @@ class Auth extends API_Controller {
 				if ($user_id)
 				{
 					// success
+					$this->db->insert('applicant_users', array('user_id' => $user_id));
 					$code = random_string('numeric', 4);
 					$this->users->update($user_id, array('activation_code' => $code, 'active' => 0, 'password' => $password));
 					$result = array('message' => $this->ion_auth->messages(), 'mobile' => $mobile, 'code' => $code);
