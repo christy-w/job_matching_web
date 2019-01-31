@@ -9,12 +9,11 @@ class User extends Admin_Controller {
 		$this->load->library('form_builder');
 	}
 
-	// Frontend User CRUD
 	public function index()
 	{
 		$this->load->model('users_groups_model', 'users_groups');
 		$crud = $this->generate_crud('users');
-		$crud->columns('groups', 'username', 'mobile', 'email', 'active');
+		$crud->columns('id', 'groups', 'mobile', 'active');
 		$this->unset_crud_fields('ip_address', 'last_login', 'update_mobile', 'update_mobile_code');
 		
 		// only webmaster and admin can change member groups
@@ -33,7 +32,42 @@ class User extends Admin_Controller {
 		$crud->unset_add();
 		$crud->unset_delete();
 
-		$this->mPageTitle = 'Users';
+		$this->mPageTitle = 'All Users';
+		$this->render_crud();
+	}
+
+	// Frontend User CRUD
+	public function employers()
+	{
+		$this->load->model('employer_user_model', 'employers');
+		$crud = $this->generate_crud('employer_users');
+		$crud->columns('user_id', 'name_en', 'email', 'is_activated', 'status');
+		$this->unset_crud_fields('user_id', 'is_activated');
+
+		$crud->set_relation('industry_id', 'industries', 'name_en');
+		$crud->set_relation('district_id', 'districts', 'name_en');
+        $crud->set_field_upload('thumbnail_url', UPLOAD_EMPLOYER);
+
+		// disable direct create / delete Frontend User
+		$crud->unset_add();
+		$crud->unset_delete();
+
+		$this->mPageTitle = 'Employer Users';
+		$this->render_crud();
+	}
+
+	public function applicants()
+	{
+		$this->load->model('applicant_user_model', 'applicants');
+		$crud = $this->generate_crud('applicant_users');
+		$crud->columns('user_id', 'name_en', 'email', 'is_activated', 'status');
+
+		// disable direct create / delete Frontend User
+		$crud->unset_add();
+		$crud->unset_edit();
+		$crud->unset_delete();
+
+		$this->mPageTitle = 'Applicant Users';
 		$this->render_crud();
 	}
 
@@ -41,6 +75,7 @@ class User extends Admin_Controller {
 	public function create_by_group($group_id)
 	{
 		$this->load->model('group_model', 'groups');
+		$this->load->model('user_model', 'users');
 		$group = $this->groups->get($group_id);
 
 		$form = $this->form_builder->create_form();
@@ -59,13 +94,35 @@ class User extends Admin_Controller {
 
 			// proceed to create user (with random password)
 			$this->load->helper('string');
-			$user_id = $this->ion_auth->register($mobile, random_string('alnum', 10), '', array('mobile' => $mobile), array($group_id));
+			$password = random_string('alnum', 10);
+			$user_id = $this->ion_auth->register($mobile, $password, '', array('mobile' => $mobile), array($group_id));
 
 			if ($user_id)
 			{
 				// success
-				$messages = $this->ion_auth->messages();
-				$this->system_message->set_success($messages);
+				switch($group_id) {
+					case 1: 
+						// Employer User
+						$insert = $this->db->insert('employer_users', array('user_id' => $user_id));
+						break;
+					case 2:
+						// Applicant User
+						$insert = $this->db->insert('applicant_users', array('user_id' => $user_id));
+						break;
+				}
+				if($insert)
+				{
+					$code = random_string('numeric', 4);
+					$this->users->update($user_id, array('activation_code' => $code, 'active' => 0, 'password' => $password));
+					$result = array('message' => $this->ion_auth->messages(), 'mobile' => $mobile, 'code' => $code);
+					$messages = $this->ion_auth->messages();
+					$this->system_message->set_success($messages);
+				} 
+				else 
+				{
+					$errors = $this->ion_auth->errors();
+					$this->system_message->set_error($errors);
+				}
 			}
 			else
 			{

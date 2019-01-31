@@ -33,7 +33,7 @@ class Auth extends API_Controller {
 	{
 		// POST fields
 		$password = $this->post('password');
-		$email = $this->post('email');
+		// $email = $this->post('email');
         $mobile = (string)$this->post('mobile');
         
         // check if sign up mobile exists
@@ -58,7 +58,7 @@ class Auth extends API_Controller {
             // User is not activated, Update existing user
             $data = array(
 				'mobile'	=> $mobile,
-                'email'		=> $email,
+                // 'email'		=> $email,
                 'password'	=> $password
 			);
 			
@@ -106,14 +106,13 @@ class Auth extends API_Controller {
 			// User is not activated, Update existing user
             $data = array(
 				'mobile'	=> $mobile,
-                'email'		=> $email,
                 'password'	=> $password
 			);
 			
             $this->form_validation->set_data($data);
 			if ($this->form_validation->run('auth/sign_up') == TRUE) 
 			{
-				$user_id = $this->ion_auth->register($mobile, $password, $mobile, array('mobile' => $mobile), array($applicant_group_id));
+				$user_id = $this->ion_auth->register($mobile, $password, '', array('mobile' => $mobile), array($applicant_group_id));
 				if ($user_id)
 				{
 					// success
@@ -171,8 +170,13 @@ class Auth extends API_Controller {
 
 		if ($activation)
 		{
+			print_r($user);
+			exit();
 			// note down activation timestamp
 			$this->users->update($user->id, array('activated_at' => date('Y-m-d H:i:s'), 'active' => 1));
+			// $this->load->model('employer_user_model', 'employers');
+			
+			// $this->users->update($user->id, array('activated_at' => date('Y-m-d H:i:s'), 'is_activated' => 1));
 
 			// return user data (get latest data after update)
 			$user = $this->users->get($user->id);

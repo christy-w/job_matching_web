@@ -13,12 +13,6 @@ class SignUp {
 	 * @SWG\Property()
 	 */
 	public $mobile;
-	
-	/**
-	 * @var string
-	 * @SWG\Property()
-	 */
-	public $email;
 
 	/**
 	 * @var string

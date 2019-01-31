@@ -16,11 +16,6 @@ $config = array(
 		 	'rules'		=> 'required',
 		),
 		array(
-			'field'		=> 'email',
-			'label'		=> 'Email',
-			'rules'		=> 'required',
-		),
-		array(
 			'field'		=> 'password',
 			'label'		=> 'Password',
 			'rules'		=> 'required|min_length[6]',

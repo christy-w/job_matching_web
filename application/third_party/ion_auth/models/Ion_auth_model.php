@@ -473,7 +473,7 @@ class Ion_auth_model extends CI_Model
 
 			$data = array(
 			    'activation_code' => NULL,
-			    'active'          => 0
+			    'active'          => 1
 			);
 
 			$this->trigger_events('extra_where');
@@ -483,7 +483,7 @@ class Ion_auth_model extends CI_Model
 		{
 			$data = array(
 			    'activation_code' => NULL,
-			    'active'          => 0
+			    'active'          => 1
 			);
 
 
@@ -913,10 +913,11 @@ class Ion_auth_model extends CI_Model
 		    $this->identity_column   => $identity,
 		    'username'   => $identity,
 		    'password'   => $password,
-		    'email'      => $email,
+		    // 'email'      => $email,
 		    'ip_address' => $ip_address,
 		    'created_on' => time(),
-		    'active'     => ($manual_activation === false ? 1 : 0)
+		    'active'     => 0
+		    // 'active'     => ($manual_activation === false ? 1 : 0)
 		);
 
 		if ($this->store_salt)
@@ -971,9 +972,10 @@ class Ion_auth_model extends CI_Model
 		}
 
 		$this->trigger_events('extra_where');
-		$where = array($this->identity_column => $identity, 'password' => $password);
+		// $where = array($this->identity_column => $identity, 'password' => $password);
 		$query = $this->db->select($this->identity_column . ', email, id, password, active, last_login')
-		                  ->where($where)
+						//   ->where($where)
+						  ->where($this->identity_column, $identity)
 		                  ->limit(1)
 		    			  ->order_by('id', 'desc')
 		                  ->get($this->tables['users']);
@@ -992,12 +994,10 @@ class Ion_auth_model extends CI_Model
 		if ($query->num_rows() === 1)
 		{
 			$user = $query->row();
+			$password = $this->hash_password_db($user->id, $password);
 
-			// $password = $this->hash_password_db($user->id, $password);
-			// $password = $this->users->get($user->id, {'password'})
-
-			// if ($password === TRUE)
-			// {
+			if ($password === TRUE)
+			{
 				if ($user->active == 0)
 				{
 					$this->trigger_events('post_login_unsuccessful');
@@ -1021,7 +1021,7 @@ class Ion_auth_model extends CI_Model
 				$this->set_message('login_successful');
 
 				return TRUE;
-			// }
+			}
 		}
 
 		// Hash something anyway, just to take up time

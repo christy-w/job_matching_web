@@ -70,6 +70,50 @@ $config = array(
 		),
 	),
 
+	// Create Employer
+	'user/create_employer_user' => array(
+		array(
+			'field'		=> 'name_zh',
+			'label'		=> 'Chinese Name',
+			'rules'		=> 'required',
+		),
+		array(
+			'field'		=> 'name_en',
+			'label'		=> 'English Name',
+			'rules'		=> 'required',
+		),
+		array(
+			'field'		=> 'tel',
+			'label'		=> 'Tel',
+			'rules'		=> 'required|numeric|is_unique[users.mobile]',
+		),
+		array(
+			'field'		=> 'email',
+			'label'		=> 'Email',
+			'rules'		=> 'required',
+		),
+		array(
+			'field'		=> 'description',
+			'label'		=> 'Description',
+			'rules'		=> '',
+		),
+		array(
+			'field'		=> 'address',
+			'label'		=> 'Address',
+			'rules'		=> '',
+		),
+		array(
+			'field'		=> 'scale',
+			'label'		=> 'No. of Employee',
+			'rules'		=> 'numeric',
+		),
+		array(
+			'field'		=> 'district_id',
+			'label'		=> 'District',
+			'rules'		=> '',
+		),
+	),
+
 	// Reset User Password
 	'user/reset_password' => array(
 		array(
