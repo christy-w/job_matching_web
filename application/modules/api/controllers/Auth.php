@@ -33,7 +33,6 @@ class Auth extends API_Controller {
 	{
 		// POST fields
 		$password = $this->post('password');
-		// $email = $this->post('email');
         $mobile = (string)$this->post('mobile');
         
         // check if sign up mobile exists
@@ -58,7 +57,6 @@ class Auth extends API_Controller {
             // User is not activated, Update existing user
             $data = array(
 				'mobile'	=> $mobile,
-                // 'email'		=> $email,
                 'password'	=> $password
 			);
 			
@@ -71,7 +69,7 @@ class Auth extends API_Controller {
                 {
 					// success - send activation code
 					$code = random_string('numeric', 4);
-					$this->users->update($user->id, array('activation_code' => $code, 'active' => 0, 'password' => $password));
+					$this->users->update($user->id, array('activation_code' => $code, 'active' => 0));
 					$result = array('message' => $this->ion_auth->messages(), 'mobile' => $mobile, 'code' => $code);
 					$this->success($result);
                 }
@@ -118,7 +116,7 @@ class Auth extends API_Controller {
 					// success
 					$this->db->insert('applicant_users', array('user_id' => $user_id));
 					$code = random_string('numeric', 4);
-					$this->users->update($user_id, array('activation_code' => $code, 'active' => 0, 'password' => $password));
+					$this->users->update($user_id, array('activation_code' => $code, 'active' => 0));
 					$result = array('message' => $this->ion_auth->messages(), 'mobile' => $mobile, 'code' => $code);
 					$this->success($result);
 				}

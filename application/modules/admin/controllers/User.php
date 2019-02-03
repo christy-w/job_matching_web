@@ -112,7 +112,7 @@ class User extends Admin_Controller {
 				if($insert)
 				{
 					$code = random_string('numeric', 4);
-					$this->users->update($user_id, array('activation_code' => $code, 'active' => 0, 'password' => $password));
+					$this->users->update($user_id, array('activation_code' => $code, 'active' => 0, 'register_password' => $password));
 					$result = array('message' => $this->ion_auth->messages(), 'mobile' => $mobile, 'code' => $code);
 					$messages = $this->ion_auth->messages();
 					$this->system_message->set_success($messages);
