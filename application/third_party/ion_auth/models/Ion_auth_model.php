@@ -967,8 +967,6 @@ class Ion_auth_model extends CI_Model
 
 		if (empty($identity) || empty($password))
 		{
-			print('1');
-			exit();
 			$this->set_error('login_unsuccessful');
 			return FALSE;
 		}
@@ -984,8 +982,6 @@ class Ion_auth_model extends CI_Model
 
 		if($this->is_time_locked_out($identity))
 		{
-			print('2');
-			exit();
 			// Hash something anyway, just to take up time
 			$this->hash_password($password);
 
@@ -1027,9 +1023,6 @@ class Ion_auth_model extends CI_Model
 				return TRUE;
 			}
 		}
-
-		print_r($this->identity_column);
-		exit();
 
 		// Hash something anyway, just to take up time
 		$this->hash_password($password);

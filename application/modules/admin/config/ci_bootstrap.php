@@ -86,15 +86,18 @@ $config['ci_bootstrap'] = array(
 				'Admin User Groups'		=> 'panel/admin_user_group',
 			)
 		),
-		'district' => array(
-			'name'		=> 'Districts',
-			'url'		=> 'district',
+		'system' => array(
+			'name'		=> 'System',
+			'url'		=> 'system',
 			'icon'		=> 'fa fa-cog',
-		),
-		'industry' => array(
-			'name'		=> 'Industries',
-			'url'		=> 'industry',
-			'icon'		=> 'fa fa-cog',
+			'children'  => array(
+				'Job Tags'				=> 'system/tag',
+				'Districts'				=> 'system/district',
+				'Industries'			=> 'system/industry',
+				'Language Abilities'	=> 'system/language',
+				'Computer Skills'		=> 'system/computer',
+				'Related Certificates'	=> 'system/certificate'
+			)
 		),
 		'util' => array(
 			'name'		=> 'Utilities',
