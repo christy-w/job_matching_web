@@ -76,14 +76,12 @@ $config['ci_bootstrap'] = array(
 				'Create Applicant User'		=> 'user/create_by_group/2',
 			)
 		),
-		'panel' => array(
-			'name'		=> 'Admin Panel',
-			'url'		=> 'panel',
+		'job' => array(
+			'name'		=> 'Job',
+			'url'		=> 'job',
 			'icon'		=> 'fa fa-cog',
 			'children'  => array(
-				'Admin Users'			=> 'panel/admin_user',
-				'Create Admin User'		=> 'panel/admin_user_create',
-				'Admin User Groups'		=> 'panel/admin_user_group',
+				'All Jobs Posted'		=> 'job',
 			)
 		),
 		'system' => array(
@@ -97,6 +95,16 @@ $config['ci_bootstrap'] = array(
 				'Language Abilities'	=> 'system/language',
 				'Computer Skills'		=> 'system/computer',
 				'Related Certificates'	=> 'system/certificate'
+			)
+		),
+		'panel' => array(
+			'name'		=> 'Admin Panel',
+			'url'		=> 'panel',
+			'icon'		=> 'fa fa-cog',
+			'children'  => array(
+				'Admin Users'			=> 'panel/admin_user',
+				'Create Admin User'		=> 'panel/admin_user_create',
+				'Admin User Groups'		=> 'panel/admin_user_group',
 			)
 		),
 		'util' => array(
