@@ -142,5 +142,5 @@ class Applicant extends API_Controller {
 		{
 			$this->error('update_failed');
 		}
-	}
+    }
 }

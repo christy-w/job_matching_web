@@ -43,7 +43,7 @@ class Application extends API_Controller {
             $this->error_forbidden();
         }
 
-		$fields = array('job_id', 'work_date', 'work_time');
+		$fields = array('job_id', 'work_date', 'work_time', 'application_status');
 		
 		$data = array();
 		$params = $this->post();
@@ -71,14 +71,12 @@ class Application extends API_Controller {
         if (empty($application_count))
         {   
             // Create application
-            $data['application_status'] = 'submitted';
             $data['applied_at'] = date('Y-m-d H:i:s');
             $success = $this->applications->insert($data);
         } 
         else
         {
             // Update application if applications are made
-            $data['application_status'] = 'submitted';
             $data['updated_at'] = date('Y-m-d H:i:s');
             $success = $this->applications->update_by($identity, $data);
         }
@@ -91,6 +89,52 @@ class Application extends API_Controller {
             $this->error('update_failed');
         }
     }
-    
 
+    /**
+	 * @SWG\Post(
+	 * 	path="/application/delete/{id}",
+	 * 	tags={"application"},
+	 *	summary="For applicant to delete an application",
+	 * 	@SWG\Parameter(
+	 * 		in="header",
+	 * 		name="X-API-KEY",
+	 * 		description="API KEY",
+	 * 		default="",
+	 * 		required=true,
+	 * 		type="string"
+	 * 	),
+	 * @SWG\Parameter(
+	 * 		in="path",
+	 * 		name="id",
+	 * 		description="Application ID",
+	 * 		required=true,
+	 * 		type="integer"
+	 * ),
+ 	 * 	@SWG\Response(
+	 * 		response="200",
+	 * 		description="Successful operation"
+	 * 	)
+	 * )
+	 */
+	public function delete_post($id)
+	{
+		// check active user
+		if ( empty($this->mUser) OR !$this->mUser->active )
+		{
+            $this->error_forbidden();
+        }
+
+        $application = $this->applications->get($id);
+        if (!empty($application))
+        {   
+            // Delete application
+            $success = $this->applications->delete($id);
+            $this->created();
+        } 
+        else
+        {
+            // Update application if applications are made
+            $this->error('delete_failed');
+        }
+    }
 }
