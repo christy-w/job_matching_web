@@ -1,7 +1,7 @@
 <?php 
 
 class Job_model extends MY_Model {
-	protected $_table = 'jobs';
+    protected $_table = 'jobs';
 
     public function create_new($data)
 	{
