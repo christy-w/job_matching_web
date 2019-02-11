@@ -16,7 +16,7 @@ class Job extends API_Controller {
 	 * 	summary="Get All Jobs",
 	 * 	@SWG\Response(
 	 * 		response="200",
-	 * 		description="List of Posted Jobs",
+	 * 		description="List of All Jobs",
 	 * 		@SWG\Schema(type="array", @SWG\Items(ref="#/definitions/JobCreate"))
 	 * 	)
 	 * )
@@ -37,8 +37,52 @@ class Job extends API_Controller {
             $job->district = $district;
         }
 		$this->response($jobs);
-    }
-    
+	}
+
+    /**
+	* @SWG\Get(
+	* path="/job/{id}",
+	* tags={"job"},
+	* summary="Job detail",
+	* @SWG\Parameter(
+	* 		in="header",
+	* 		name="X-API-KEY",
+	* 		description="API Key",
+	* 		default="anonymous",
+	* 		required=true,
+	* 		type="string"
+	* ),
+	* @SWG\Parameter(
+	* 		in="path",
+	* 		name="id",
+	* 		description="Job ID",
+	* 		required=true,
+	* 		type="integer"
+	* ),
+	* @SWG\Response(
+	* 		response="200",
+	* 		description="Employer object",
+	* 		@SWG\Schema(ref="#/definitions/JobCreate")
+	* )
+	* )
+	*/
+	public function id_get($id)
+	{
+		$data = $this->jobs->get($id);
+
+        $this->load->model('employer_user_model', 'employers');
+		$this->load->model('district_model', 'districts');
+		$this->load->model('job_applicant_model', 'applications');
+		$employers = $this->employers->get_by_user_id($data->employer_user_id);
+		$district = $this->districts->get($data->district_id);
+		$applications = $this->applications->get_many_by(array('job_id' => $id));
+
+		$data->employer = $employers;
+		$data->district = $district;
+		$data->applications = $applications;
+		$this->response($data);
+	}
+
     /**
 	 * @SWG\Post(
 	 * 	path="/job",
