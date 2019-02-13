@@ -23,6 +23,10 @@ class API_Controller extends REST_Controller {
 			header($header);
 		}
 
+		// ignore OPTIONS requests
+		if ($this->request->method=='options')
+			exit;
+
 		$this->verify_token();
 	}
 
