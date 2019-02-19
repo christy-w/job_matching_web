@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Feb 19, 2019 at 07:18 PM
+-- Generation Time: Feb 19, 2019 at 07:20 PM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.1
 
@@ -21,8 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `fyp`
 --
-CREATE DATABASE IF NOT EXISTS `fyp` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
-USE `fyp`;
 
 -- --------------------------------------------------------
 
