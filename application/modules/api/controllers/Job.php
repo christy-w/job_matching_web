@@ -117,7 +117,9 @@ class Job extends API_Controller {
 			$this->error_forbidden();
         }
         
-		$fields = array('name_zh', 'name_en', 'type', 'district_id', 'location', 'salary_month', 'salary_hour', 'time', 'date', 'description', 'quota', 'payment_method');
+		$fields = array('name_zh', 'name_en', 'pos', 'type', 'district_id', 
+		'location_zh', 'location_en', 'monthly_wage', 'hourly_wage', 'description_zh', 
+		'description_en', 'quota', 'payment_method');
 		$data = array();
 		foreach ($fields as $field)
 		{

@@ -7,6 +7,11 @@ namespace MySwaggerDefinitions;
  * @SWG\Definition()
  */
 class JobCreate {
+	/**
+	 * @var int
+	 * @SWG\Property()
+	 */
+    public $pos;
 
 	/**
 	 * @var string
@@ -36,37 +41,36 @@ class JobCreate {
 	 * @var string
 	 * @SWG\Property()
 	 */
-	public $location;
+	public $location_zh;
 
 	/**
 	 * @var string
 	 * @SWG\Property()
 	 */
-	public $salary_month;
+	public $location_en;
 
 	/**
 	 * @var string
 	 * @SWG\Property()
 	 */
-	public $salary_hour;
+	public $monthly_wage;
 
 	/**
 	 * @var string
 	 * @SWG\Property()
 	 */
-	public $time;
+	public $hourly_wage;
 
 	/**
 	 * @var string
 	 * @SWG\Property()
 	 */
-	public $date;
-
+	public $description_zh;
 	/**
 	 * @var string
 	 * @SWG\Property()
 	 */
-	public $description;
+	public $description_en;
 
 	/**
 	 * @var int

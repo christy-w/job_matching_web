@@ -45,6 +45,7 @@ class User extends Admin_Controller {
 
 		$crud->set_relation('industry_id', 'industries', 'name_en');
 		$crud->set_relation('district_id', 'districts', 'name_en');
+		$crud->set_relation_n_n('benefits', 'employers_benefits', 'benefits', 'employer_user_id', 'benefit_id', 'name_en');
         $crud->set_field_upload('thumbnail_url', UPLOAD_EMPLOYER);
 
 		// disable direct create / delete Frontend User
