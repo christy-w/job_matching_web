@@ -44,4 +44,11 @@ class System extends Admin_Controller {
         $this->mPageTitle = 'Job Tags';
         $this->render_crud();
 	}
+
+	public function benefit()
+	{
+		$crud = $this->generate_crud('benefits');
+        $this->mPageTitle = 'Employee Benefits';
+        $this->render_crud();
+	}
 }

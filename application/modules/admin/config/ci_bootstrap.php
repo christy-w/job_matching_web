@@ -94,7 +94,8 @@ $config['ci_bootstrap'] = array(
 				'Industries'			=> 'system/industry',
 				'Language Abilities'	=> 'system/language',
 				'Computer Skills'		=> 'system/computer',
-				'Related Certificates'	=> 'system/certificate'
+				'Related Certificates'	=> 'system/certificate',
+				'Benefits'				=> 'system/benefit'
 			)
 		),
 		'panel' => array(
