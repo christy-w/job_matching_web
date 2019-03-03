@@ -271,6 +271,11 @@ class Auth extends API_Controller {
 			$forgotten_password_code = random_string('numeric', 4);
 			$this->users->update($user->id, array('forgotten_password_code' => $forgotten_password_code));
 
+			// Remove original password generated in registration
+			if ($user->register_password != NULL) {
+				$this->users->update($user->id, array('register_password' => NULL));
+			}
+
 			// display result
 			$result = array('message' => $this->ion_auth->messages(), 'mobile' => $identity);
 			if (ENVIRONMENT!='production')
