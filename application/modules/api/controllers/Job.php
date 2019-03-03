@@ -28,13 +28,12 @@ class Job extends API_Controller {
         // Append Employer info
         $this->load->model('employer_user_model', 'employers');
         $this->load->model('district_model', 'districts');
+        $this->load->model('tag_model', 'tags');
         foreach ($jobs as $job)
 		{
-            $employers = $this->employers->get_by_user_id($job->employer_user_id);
-            $district = $this->districts->get($job->district_id);
-
-            $job->employer = $employers;
-            $job->district = $district;
+            $job->employer = $this->employers->get_by_user_id($job->employer_user_id);
+			$job->district = $this->districts->get($job->district_id);
+			$job->tags = $this->tags->get_by_job_id($job->id);
         }
 		$this->response($jobs);
 	}

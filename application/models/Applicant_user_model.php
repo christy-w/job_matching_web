@@ -18,6 +18,6 @@ class Applicant_user_model extends MY_Model {
 		// $this->db->join('industries AS i', 'employer_users.industry_id = i.id', 'LEFT');
 		// $this->db->where('employer_users.status', 'active');
 
-		return parent::get_by(array('user_id' => $user_id));
+		return parent::get($user_id);
 	}
 }

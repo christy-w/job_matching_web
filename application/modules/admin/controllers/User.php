@@ -19,7 +19,7 @@ class User extends Admin_Controller {
 		// only webmaster and admin can change member groups
 		if ($crud->getState()=='list' || $this->ion_auth->in_group(array('webmaster', 'admin')))
 		{
-			$crud->set_relation_n_n('groups', 'users_groups', 'groups', 'user_id', 'group_id', 'name');
+			$crud->set_relation_n_n('groups', 'users_groups', 'groups', 'id', 'group_id', 'name');
 		}
 
 		// only webmaster and admin can reset user password
@@ -41,11 +41,11 @@ class User extends Admin_Controller {
 	{
 		$this->load->model('employer_user_model', 'employers');
 		$crud = $this->generate_crud('employer_users');
-		$crud->columns('user_id', 'name_en', 'name_zh', 'status');
+		$crud->columns('id', 'name_en', 'name_zh', 'status');
 
 		$crud->set_relation('industry_id', 'industries', 'name_en');
 		$crud->set_relation('district_id', 'districts', 'name_en');
-		$crud->set_relation_n_n('benefits', 'employers_benefits', 'benefits', 'employer_user_id', 'benefit_id', 'name_en');
+		$crud->set_relation_n_n('benefits', 'employers_benefits', 'benefits', 'employer_id', 'benefit_id', 'name_en');
         $crud->set_field_upload('thumbnail_url', UPLOAD_EMPLOYER);
 
 		// disable direct create / delete Frontend User
@@ -60,7 +60,7 @@ class User extends Admin_Controller {
 	{
 		$this->load->model('applicant_user_model', 'applicants');
 		$crud = $this->generate_crud('applicant_users');
-		$crud->columns('user_id', 'name_en', 'name_zh', 'status');
+		$crud->columns('id', 'name_en', 'name_zh', 'status');
 
 		// disable direct create / delete Frontend User
 		$crud->unset_add();
@@ -103,11 +103,11 @@ class User extends Admin_Controller {
 				switch($group_id) {
 					case 1: 
 						// Employer User
-						$insert = $this->db->insert('employer_users', array('user_id' => $user_id));
+						$insert = $this->db->insert('employer_users', array('id' => $user_id));
 						break;
 					case 2:
 						// Applicant User
-						$insert = $this->db->insert('applicant_users', array('user_id' => $user_id));
+						$insert = $this->db->insert('applicant_users', array('id' => $user_id));
 						break;
 				}
 				if($insert)

@@ -7,7 +7,7 @@ class Job_model extends MY_Model {
 	{
 		// fetch user data
 		$this->load->model('employer_user_model', 'employers');
-        $employer = $this->employers->get_by(array('user_id' => $data['employer_user_id']));
+        $employer = $this->employers->get($data['employer_user_id']);
         
         if ( empty($employer) )
 			return FALSE;
@@ -15,4 +15,5 @@ class Job_model extends MY_Model {
         $created = parent::insert($data);
 		return $created;
 	}
+
 }

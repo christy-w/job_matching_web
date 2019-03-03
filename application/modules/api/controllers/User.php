@@ -82,13 +82,13 @@ class User extends API_Controller {
 		{
 			// Employer
 			$this->load->model('employer_user_model', 'employers');
-			$user_info = $this->employers->get_by(array('user_id' => $this->mUser->id));
+			$user_info = $this->employers->get($this->mUser->id);
 		}
 		else if ($group_id == 2) 
 		{
 			// Applicant
 			$this->load->model('applicant_user_model', 'applicants');
-			$user_info = $this->applicants->get_by(array('user_id' => $this->mUser->id));
+			$user_info = $this->applicants->get($this->mUser->id);
 		}
 		$data->info = $user_info;
 		// output result

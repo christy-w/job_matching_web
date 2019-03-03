@@ -114,7 +114,7 @@ class Auth extends API_Controller {
 				if ($user_id)
 				{
 					// success
-					$this->db->insert('applicant_users', array('user_id' => $user_id));
+					$this->db->insert('applicant_users', array('id' => $user_id));
 					$code = random_string('numeric', 4);
 					$this->users->update($user_id, array('activation_code' => $code, 'active' => 0));
 					$result = array('message' => $this->ion_auth->messages(), 'mobile' => $mobile, 'code' => $code);
@@ -368,12 +368,12 @@ class Auth extends API_Controller {
 		$user->main_group = empty($user->groups) ? '' : $user->groups[0]->name;
 
 		// append API key
-		$key = $this->api_keys->get_by('user_id', $user->id);
+		$key = $this->api_keys->get($user->id);
 		if ( empty($key) )
 		{
 			$key_value = $this->_generate_key();
 			$data = array(
-				'user_id'		=> $user->id,
+				'id'			=> $user->id,
 				'key'			=> $key_value,
 				'level'			=> 1,
 				'ignore_limits'	=> 1,

@@ -113,14 +113,14 @@ class Applicant extends API_Controller {
 			}
         }
         // Relate user id
-        $data['user_id'] = $this->mUser->id;
+        // $data['id'] = $this->mUser->id;
 
 		// skip update database if no field need to be updated
 		if ( empty($data) )
 			$this->created();
 
 		// proceed to update
-		$success = $this->applicants->update_by(array('user_id' => $this->mUser->id), $data);
+		$success = $this->applicants->update_by($this->mUser->id, $data);
 
 		if ($success)
 		{
