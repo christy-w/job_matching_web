@@ -56,18 +56,7 @@ class Job extends API_Controller {
 	*/
 	public function id_get($id)
 	{
-		$data = $this->jobs->get($id);
-
-        $this->load->model('employer_user_model', 'employers');
-		$this->load->model('district_model', 'districts');
-		$this->load->model('job_applicant_model', 'applications');
-		$employers = $this->employers->get_by_user_id($data->employer_user_id);
-		$district = $this->districts->get($data->district_id);
-		$applications = $this->applications->get_many_by(array('job_id' => $id));
-
-		$data->employer = $employers;
-		$data->district = $district;
-		$data->applications = $applications;
+		$data = $this->jobs->get_by_job_id($id);
 		$this->response($data);
 	}
 
