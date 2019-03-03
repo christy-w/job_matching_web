@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Feb 28, 2019 at 06:39 PM
+-- Generation Time: Mar 03, 2019 at 03:52 PM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.1
 
@@ -86,7 +86,7 @@ CREATE TABLE `admin_users` (
 --
 
 INSERT INTO `admin_users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`) VALUES
-(1, '127.0.0.1', 'webmaster', '$2y$08$/X5gzWjesYi78GqeAv5tA.dVGBVP7C1e1PzqnYCVe5s1qhlDIPPES', NULL, NULL, NULL, NULL, NULL, NULL, 1451900190, 1551366528, 1, 'Webmaster', ''),
+(1, '127.0.0.1', 'webmaster', '$2y$08$/X5gzWjesYi78GqeAv5tA.dVGBVP7C1e1PzqnYCVe5s1qhlDIPPES', NULL, NULL, NULL, NULL, NULL, NULL, 1451900190, 1551588686, 1, 'Webmaster', ''),
 (2, '127.0.0.1', 'admin', '$2y$08$7Bkco6JXtC3Hu6g9ngLZDuHsFLvT7cyAxiz1FzxlX5vwccvRT7nKW', NULL, NULL, NULL, NULL, NULL, NULL, 1451900228, 1549203420, 1, 'Admin', ''),
 (3, '127.0.0.1', 'manager', '$2y$08$snzIJdFXvg/rSHe0SndIAuvZyjktkjUxBXkrrGdkPy1K6r5r/dMLa', NULL, NULL, NULL, NULL, NULL, NULL, 1451900430, 1465489585, 1, 'Manager', ''),
 (4, '127.0.0.1', 'staff', '$2y$08$NigAXjN23CRKllqe3KmjYuWXD5iSRPY812SijlhGeKfkrMKde9da6', NULL, NULL, NULL, NULL, NULL, NULL, 1451900439, 1465489590, 1, 'Staff', '');
@@ -135,7 +135,6 @@ CREATE TABLE `api_access` (
 
 CREATE TABLE `api_keys` (
   `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
   `key` varchar(40) NOT NULL,
   `level` int(2) NOT NULL,
   `ignore_limits` tinyint(1) NOT NULL DEFAULT '0',
@@ -148,12 +147,11 @@ CREATE TABLE `api_keys` (
 -- Dumping data for table `api_keys`
 --
 
-INSERT INTO `api_keys` (`id`, `user_id`, `key`, `level`, `ignore_limits`, `is_private_key`, `ip_addresses`, `date_created`) VALUES
-(1, 1, 'wogck4ow0oskwk00scg0wgs48cgoo8csscwgcwsg', 1, 1, 0, NULL, 1550140528),
-(2, 2, '0cwskogccw8kwkgs8wwo80w448kswg884gcwc4wo', 1, 1, 0, NULL, 1550140805),
-(3, 4, 'ogcg4o4gw0o48ook4o4s0s4o8kw4gggs80ok0oko', 1, 1, 0, NULL, 1550141237),
-(4, 5, 'sc8ok0k0gc844g88ocooc0k8kg8sskw4sk8kswss', 1, 1, 0, NULL, 1551373124),
-(5, 6, 'scgockc0s8o8kk0o00gskssgg884ssw0g44ggw0g', 1, 1, 0, NULL, 1551366574);
+INSERT INTO `api_keys` (`id`, `key`, `level`, `ignore_limits`, `is_private_key`, `ip_addresses`, `date_created`) VALUES
+(1, 'csogkkok0gwkkw0gg8cgs8488c08ogg4kcs0w8o4', 1, 1, 0, NULL, 1551603083),
+(3, '8gs0g0w4okk04cscwks4ogk08cccow444ogc04gg', 1, 1, 0, NULL, 1551599642),
+(4, 'ok888k8gsocs8cw04wggok48g8kk8os4oww4s8co', 1, 1, 0, NULL, 1551599844),
+(5, '8s4cogws4g444o00cg0cs0ok8gco00gkswwcgw08', 1, 1, 0, NULL, 1551603050);
 
 -- --------------------------------------------------------
 
@@ -196,7 +194,6 @@ CREATE TABLE `api_logs` (
 
 CREATE TABLE `applicant_users` (
   `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
   `name_zh` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
   `name_en` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -217,12 +214,9 @@ CREATE TABLE `applicant_users` (
 -- Dumping data for table `applicant_users`
 --
 
-INSERT INTO `applicant_users` (`id`, `user_id`, `name_zh`, `name_en`, `email`, `gender`, `dob`, `district_id`, `address`, `education_level`, `employment_status`, `related_experience`, `computer_skills`, `language_abilities`, `related_certs`, `status`) VALUES
-(1, 1, '', '', NULL, 'female', '0000-00-00', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'active'),
-(2, 2, '', '', NULL, 'female', '0000-00-00', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'active'),
-(3, 3, '', '', NULL, 'female', '0000-00-00', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'active'),
-(4, 4, '', '', NULL, 'female', '0000-00-00', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'active'),
-(5, 5, '', '', NULL, 'female', '0000-00-00', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'active');
+INSERT INTO `applicant_users` (`id`, `name_zh`, `name_en`, `email`, `gender`, `dob`, `district_id`, `address`, `education_level`, `employment_status`, `related_experience`, `computer_skills`, `language_abilities`, `related_certs`, `status`) VALUES
+(3, '', '', NULL, 'female', '0000-00-00', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'active'),
+(4, '', '', NULL, 'female', '0000-00-00', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'active');
 
 -- --------------------------------------------------------
 
@@ -341,7 +335,7 @@ INSERT INTO `districts` (`id`, `area`, `name_zh`, `name_en`) VALUES
 
 CREATE TABLE `employers_benefits` (
   `id` int(11) NOT NULL,
-  `employer_user_id` int(11) NOT NULL,
+  `employer_id` int(11) NOT NULL,
   `benefit_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -349,9 +343,11 @@ CREATE TABLE `employers_benefits` (
 -- Dumping data for table `employers_benefits`
 --
 
-INSERT INTO `employers_benefits` (`id`, `employer_user_id`, `benefit_id`) VALUES
+INSERT INTO `employers_benefits` (`id`, `employer_id`, `benefit_id`) VALUES
 (1, 1, 2),
-(3, 1, 5);
+(3, 1, 5),
+(4, 2, 3),
+(5, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -361,7 +357,6 @@ INSERT INTO `employers_benefits` (`id`, `employer_user_id`, `benefit_id`) VALUES
 
 CREATE TABLE `employer_users` (
   `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
   `name_zh` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
   `name_en` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
   `description_zh` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -380,8 +375,10 @@ CREATE TABLE `employer_users` (
 -- Dumping data for table `employer_users`
 --
 
-INSERT INTO `employer_users` (`id`, `user_id`, `name_zh`, `name_en`, `description_zh`, `description_en`, `industry_id`, `district_id`, `address_zh`, `address_en`, `tel`, `scale`, `thumbnail_url`, `status`) VALUES
-(1, 6, '錦綉花園物業管理有限公司', 'Fairview Park Property Management Limited', '錦綉花園位於元朗市郊，擁有超過五千戶獨立屋及市中心商場的繁榮社區。', 'Fairview Park is a thriving suburban community of over 5,000 houses surrounding a commercial town centre in Yuen Long.', 12, 18, '新界元朗錦綉花園市中心G座', 'Block G, Town Centre, Fairview Park, Yuen Long, New Territories', '21232123', '501-1000', '6f3f3-index_r6_c1.jpg', 'active');
+INSERT INTO `employer_users` (`id`, `name_zh`, `name_en`, `description_zh`, `description_en`, `industry_id`, `district_id`, `address_zh`, `address_en`, `tel`, `scale`, `thumbnail_url`, `status`) VALUES
+(1, '錦綉花園物業管理有限公司', 'Fairview Park Property Management Limited', '錦綉花園位於元朗市郊，擁有超過五千戶獨立屋及市中心商場的繁榮社區。', 'Fairview Park is a thriving suburban community of over 5,000 houses surrounding a commercial town centre in Yuen Long.', 12, 18, '新界元朗錦綉花園市中心G座', 'Block G, Town Centre, Fairview Park, Yuen Long, New Territories', '21232123', '501-1000', '6f3f3-index_r6_c1.jpg', 'active'),
+(2, '', '', NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, 'active'),
+(5, '', '', NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, 'active');
 
 -- --------------------------------------------------------
 
@@ -473,10 +470,22 @@ CREATE TABLE `jobs` (
 --
 
 INSERT INTO `jobs` (`id`, `pos`, `name_zh`, `name_en`, `type`, `employer_user_id`, `district_id`, `location_zh`, `location_en`, `monthly_wage`, `hourly_wage`, `description_zh`, `description_en`, `quota`, `payment_method`, `status`, `publish_date`) VALUES
-(1, 0, '高級保安員 (日班)', 'Senior Security Guard', 'fulltime', 6, 18, '錦綉花園', 'Fairview Park', '12000', 'string', '負責執行日常保安工作，包括巡邏、訪客出入登記、交通指揮及協助處理突然事件', '負責執行日常保安工作，包括巡邏、訪客出入登記、交通指揮及協助處理突然事件', 2, 'transfer', 'active', '2019-02-28 16:21:09'),
-(2, 0, '保安隊長 (日班)', 'Security Officer', 'fulltime', 6, 18, '錦綉花園', 'Fairview Park', '14000', 'string', '負責協助監察及執行日常保安工作及處理突發事件', '負責協助監察及執行日常保安工作及處理突發事件', 1, 'transfer', 'active', '2019-02-27 16:23:13'),
-(3, 0, '保安隊長 (夜班)', 'Security Officer', 'fulltime', 6, 18, '錦綉花園', 'Fairview Park', '14000', 'string', '負責協助監察及執行日常保安工作及處理突發事件', '負責協助監察及執行日常保安工作及處理突發事件', 1, 'transfer', 'active', '2019-02-26 16:23:37'),
-(4, 0, '保安主任', 'Security Manager', 'fulltime', 6, 18, '錦綉花園', 'Fairview Park', '18000', 'string', '監察及獨立處理日常保安管理工作，包括突發事件應變、違泊車扣鎖、培訓下屬保安知識、處理住客查詢及投訴', '監察及獨立處理日常保安管理工作，包括突發事件應變、違泊車扣鎖、培訓下屬保安知識、處理住客查詢及投訴', 1, 'transfer', 'active', '2019-02-28 16:25:10');
+(1, 0, '高級保安員 (日班)', 'Senior Security Guard', 'fulltime', 1, 18, '錦綉花園', 'Fairview Park', '12000', 'string', '負責執行日常保安工作，包括巡邏、訪客出入登記、交通指揮及協助處理突然事件', '負責執行日常保安工作，包括巡邏、訪客出入登記、交通指揮及協助處理突然事件', 2, 'transfer', 'active', '2019-02-28 16:21:09'),
+(2, 0, '保安隊長 (日班)', 'Security Officer', 'fulltime', 1, 18, '錦綉花園', 'Fairview Park', '14000', 'string', '負責協助監察及執行日常保安工作及處理突發事件', '負責協助監察及執行日常保安工作及處理突發事件', 1, 'transfer', 'active', '2019-02-27 16:23:13'),
+(3, 0, '保安隊長 (夜班)', 'Security Officer', 'fulltime', 1, 18, '錦綉花園', 'Fairview Park', '14000', 'string', '負責協助監察及執行日常保安工作及處理突發事件', '負責協助監察及執行日常保安工作及處理突發事件', 1, 'transfer', 'active', '2019-02-26 16:23:37'),
+(4, 0, '保安主任', 'Security Manager', 'fulltime', 1, 18, '錦綉花園', 'Fairview Park', '18000', 'string', '監察及獨立處理日常保安管理工作，包括突發事件應變、違泊車扣鎖、培訓下屬保安知識、處理住客查詢及投訴', '監察及獨立處理日常保安管理工作，包括突發事件應變、違泊車扣鎖、培訓下屬保安知識、處理住客查詢及投訴', 1, 'transfer', 'active', '2019-02-28 16:25:10');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jobs_tags`
+--
+
+CREATE TABLE `jobs_tags` (
+  `id` int(11) NOT NULL,
+  `job_id` int(11) NOT NULL,
+  `tag_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -495,6 +504,19 @@ CREATE TABLE `job_applicants` (
   `cancelled_at` timestamp NULL DEFAULT NULL,
   `application_status` enum('submitted','in_progress','offered','confirmed','withdrawn','vacancy_filled') COLLATE utf8_unicode_ci NOT NULL,
   `status` enum('active','hidden') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'active'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `job_slots`
+--
+
+CREATE TABLE `job_slots` (
+  `id` int(11) NOT NULL,
+  `job_id` int(11) NOT NULL,
+  `date` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `time` varchar(100) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -578,8 +600,7 @@ CREATE TABLE `tags` (
 INSERT INTO `tags` (`id`, `name_zh`, `name_en`, `color`, `status`) VALUES
 (1, '優秀僱主', 'Excellent Employer', NULL, 'active'),
 (2, '即時出糧', 'Immediate Payment', NULL, 'active'),
-(3, '大量空缺', 'High Vacancy', NULL, 'active'),
-(4, '五天工作週', 'Five-day Work Week', NULL, 'active');
+(3, '大量空缺', 'High Vacancy', NULL, 'active');
 
 -- --------------------------------------------------------
 
@@ -616,12 +637,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `register_password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `update_mobile`, `update_mobile_code`, `remember_code`, `created_on`, `last_login`, `active`, `activated_at`, `mobile`, `info_updated`, `info_first_copy`, `remarks`) VALUES
-(1, '::1', '11111111', '$2y$08$hMbW.k1K7vdZ2ViGNf4OqOw12PVx8Wkz3l7t5TnzgGcg4ZleEhJvm', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1550126806, NULL, 1, '2019-02-14 03:35:28', '11111111', 0, NULL, NULL),
-(2, '::1', '12221222', '$2y$08$tRqdEAE1l99z0dnu7abOv.NWr6YgLOBdd7jcuMWa69TBoiyMvkHuq', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1550140788, NULL, 1, '2019-02-14 03:40:05', '12221222', 0, NULL, NULL),
-(3, '::1', '13331333', '$2y$08$OrkU5qV5aurmhMx879.5YOS1FuQPfOF7w1JxdwI792YSshDKhLkCu', NULL, NULL, NULL, '7234', NULL, NULL, NULL, NULL, NULL, 1550141036, NULL, 0, NULL, '13331333', 0, NULL, NULL),
-(4, '::1', '14441444', '$2y$08$Nc98W.A4K8C2Vg1ENLaR2uccjq2FHayZOV2p1ITjiFB8kqTiOMGo.', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1550141195, 1550141237, 1, '2019-02-14 03:47:17', '14441444', 0, NULL, NULL),
-(5, '::1', '12341234', '$2y$08$O/p5JVMGGexxipy0ZKJyk.DzYNVF0D8l332XwA/DD/HIUkQaoCz22', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1550477102, 1551373124, 1, '2019-02-18 01:08:43', '12341234', 0, NULL, NULL),
-(6, '::1', '00000000', '$2y$08$gEl902u0dzcWwSfu9zT0xeWTUvBF6IsW60LDgEDycBYnAL2..ufGy', 'Di94n1cRaI', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1551366538, 1551366574, 1, '2019-02-28 08:09:34', '00000000', 0, NULL, NULL);
+(1, '::1', '00000000', '$2y$08$CTTECmRGd1FdtRgHDrk6teoGAaPm30QcldGexBbiw8psREfYkmBfC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1551366538, 1551603083, 1, '2019-02-28 08:09:34', '00000000', 0, NULL, NULL),
+(2, '::1', '00010001', '$2y$08$pm2CW4sI4GbJMI8SBbS0e.MHYkF98KhkPZ1klhBKfGj3MIfgde4De', '8rSlgb2f4G', NULL, NULL, '3640', NULL, NULL, NULL, NULL, NULL, 1551591555, NULL, 0, NULL, '00010001', 0, NULL, NULL),
+(3, '::1', '11111111', '$2y$08$KTO4yMw34LqPI6VsiuSh5.XXghvAisv/hjVj2EF7n/GJ8yK3SZWJy', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1551599558, 1551599642, 1, '2019-03-03 00:53:28', '11111111', 0, NULL, NULL),
+(4, '::1', '12221222', '$2y$08$GkkF.fzwCw9QM7i28WPivO/O6KuBnPjq790nS4W1s5J/aZ8UWvyli', '7qZrlo1vi4', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1551599683, 1551599844, 1, '2019-03-03 00:57:14', '12221222', 0, NULL, NULL),
+(5, '::1', '00020002', '$2y$08$9vRAjulsb0wh0Xm2kz.dj.b4NqsKin11cuTpQbZKVQJ50C/YDuw5m', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1551601740, 1551603050, 1, '2019-03-03 01:29:25', '00020002', 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -640,12 +660,11 @@ CREATE TABLE `users_groups` (
 --
 
 INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
-(1, 1, 2),
-(2, 2, 2),
+(1, 1, 1),
+(2, 2, 1),
 (3, 3, 2),
 (4, 4, 2),
-(5, 5, 2),
-(6, 6, 1);
+(5, 5, 1);
 
 --
 -- Indexes for dumped tables
@@ -760,9 +779,21 @@ ALTER TABLE `jobs`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `jobs_tags`
+--
+ALTER TABLE `jobs_tags`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `job_applicants`
 --
 ALTER TABLE `job_applicants`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `job_slots`
+--
+ALTER TABLE `job_slots`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -854,12 +885,6 @@ ALTER TABLE `api_logs`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `applicant_users`
---
-ALTER TABLE `applicant_users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
 -- AUTO_INCREMENT for table `applications`
 --
 ALTER TABLE `applications`
@@ -887,13 +912,7 @@ ALTER TABLE `districts`
 -- AUTO_INCREMENT for table `employers_benefits`
 --
 ALTER TABLE `employers_benefits`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `employer_users`
---
-ALTER TABLE `employer_users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `groups`
@@ -914,9 +933,21 @@ ALTER TABLE `jobs`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT for table `jobs_tags`
+--
+ALTER TABLE `jobs_tags`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `job_applicants`
 --
 ALTER TABLE `job_applicants`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `job_slots`
+--
+ALTER TABLE `job_slots`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -947,13 +978,13 @@ ALTER TABLE `tags`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `users_groups`
 --
 ALTER TABLE `users_groups`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
