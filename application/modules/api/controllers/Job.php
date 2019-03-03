@@ -23,18 +23,7 @@ class Job extends API_Controller {
 	 */
 	public function index_get()
 	{
-        $jobs = $this->jobs->get_many_by(array('status' => 'active'));
-
-        // Append Employer info
-        $this->load->model('employer_user_model', 'employers');
-        $this->load->model('district_model', 'districts');
-        $this->load->model('tag_model', 'tags');
-        foreach ($jobs as $job)
-		{
-            $job->employer = $this->employers->get_by_user_id($job->employer_user_id);
-			$job->district = $this->districts->get($job->district_id);
-			$job->tags = $this->tags->get_by_job_id($job->id);
-        }
+        $jobs = $this->jobs->get_all_jobs();
 		$this->response($jobs);
 	}
 
