@@ -46,13 +46,7 @@ class ApplicantUpdate {
 
 	/**
 	 * @var string
-	 * @SWG\Property()
-	 */
-	public $address;
-
-	/**
-	 * @var string
-	 * @SWG\Property(enum={"primary","college","asso_subdegree","undergraduate", "postgraduate", "never"})
+	 * @SWG\Property(enum={"primary","secondary","post_secondary","university","never"})
 	 */
 	public $education_level;
 

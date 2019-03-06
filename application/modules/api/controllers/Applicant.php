@@ -85,8 +85,9 @@ class Applicant extends API_Controller {
 
 		$fields = array(
 			'name_zh', 'name_en', 'email',
-			'gender', 'dob', 'district_id', 'address', 'education_level', 
-			'employment_status', 'related_experience', 'computer_skills', 'language_abilities', 'related_certs'
+			'gender', 'dob', 'district_id', 'education_level', 
+			'employment_status', 'related_experience', 'computer_skills', 
+			'language_abilities', 'related_certs'
 		);
 		
 		$data = array();
@@ -112,18 +113,18 @@ class Applicant extends API_Controller {
 					break;
 			}
         }
-        // Relate user id
-        // $data['id'] = $this->mUser->id;
 
 		// skip update database if no field need to be updated
 		if ( empty($data) )
 			$this->created();
 
 		// proceed to update
-		$success = $this->applicants->update_by($this->mUser->id, $data);
+		$success = $this->applicants->update($this->mUser->id, $data);
 
 		if ($success)
 		{
+			print_r($success);
+			exit();
             // for first time update info - save initial copy
 		    $this->load->model('user_model', 'users');
 			$user = $this->users->get($this->mUser->id);

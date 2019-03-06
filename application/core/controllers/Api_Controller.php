@@ -39,7 +39,7 @@ class API_Controller extends REST_Controller {
 
 		if ( !empty($this->mApiKey) )
 		{
-			$this->mUser = $this->users->get($this->mApiKey->user_id);
+			$this->mUser = $this->users->get($this->mApiKey->id);
 
 			// only when the API Key represents a user
 			if ( !empty($this->mUser) )
