@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 03, 2019 at 03:52 PM
+-- Generation Time: Mar 07, 2019 at 06:38 PM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.1
 
@@ -86,7 +86,7 @@ CREATE TABLE `admin_users` (
 --
 
 INSERT INTO `admin_users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`) VALUES
-(1, '127.0.0.1', 'webmaster', '$2y$08$/X5gzWjesYi78GqeAv5tA.dVGBVP7C1e1PzqnYCVe5s1qhlDIPPES', NULL, NULL, NULL, NULL, NULL, NULL, 1451900190, 1551588686, 1, 'Webmaster', ''),
+(1, '127.0.0.1', 'webmaster', '$2y$08$/X5gzWjesYi78GqeAv5tA.dVGBVP7C1e1PzqnYCVe5s1qhlDIPPES', NULL, NULL, NULL, NULL, NULL, NULL, 1451900190, 1551966544, 1, 'Webmaster', ''),
 (2, '127.0.0.1', 'admin', '$2y$08$7Bkco6JXtC3Hu6g9ngLZDuHsFLvT7cyAxiz1FzxlX5vwccvRT7nKW', NULL, NULL, NULL, NULL, NULL, NULL, 1451900228, 1549203420, 1, 'Admin', ''),
 (3, '127.0.0.1', 'manager', '$2y$08$snzIJdFXvg/rSHe0SndIAuvZyjktkjUxBXkrrGdkPy1K6r5r/dMLa', NULL, NULL, NULL, NULL, NULL, NULL, 1451900430, 1465489585, 1, 'Manager', ''),
 (4, '127.0.0.1', 'staff', '$2y$08$NigAXjN23CRKllqe3KmjYuWXD5iSRPY812SijlhGeKfkrMKde9da6', NULL, NULL, NULL, NULL, NULL, NULL, 1451900439, 1465489590, 1, 'Staff', '');
@@ -135,6 +135,7 @@ CREATE TABLE `api_access` (
 
 CREATE TABLE `api_keys` (
   `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
   `key` varchar(40) NOT NULL,
   `level` int(2) NOT NULL,
   `ignore_limits` tinyint(1) NOT NULL DEFAULT '0',
@@ -147,11 +148,11 @@ CREATE TABLE `api_keys` (
 -- Dumping data for table `api_keys`
 --
 
-INSERT INTO `api_keys` (`id`, `key`, `level`, `ignore_limits`, `is_private_key`, `ip_addresses`, `date_created`) VALUES
-(1, 'csogkkok0gwkkw0gg8cgs8488c08ogg4kcs0w8o4', 1, 1, 0, NULL, 1551603083),
-(3, '8gs0g0w4okk04cscwks4ogk08cccow444ogc04gg', 1, 1, 0, NULL, 1551599642),
-(4, 'ok888k8gsocs8cw04wggok48g8kk8os4oww4s8co', 1, 1, 0, NULL, 1551599844),
-(5, '8s4cogws4g444o00cg0cs0ok8gco00gkswwcgw08', 1, 1, 0, NULL, 1551603050);
+INSERT INTO `api_keys` (`id`, `user_id`, `key`, `level`, `ignore_limits`, `is_private_key`, `ip_addresses`, `date_created`) VALUES
+(1, 1, 'csogkkok0gwkkw0gg8cgs8488c08ogg4kcs0w8o4', 1, 1, 0, NULL, 1551603083),
+(3, 3, '80804o8so4kscwgw4ow0o8wgckwwcc4sosw4c0cw', 1, 1, 0, NULL, 1551954518),
+(4, 4, 'ok888k8gsocs8cw04wggok48g8kk8os4oww4s8co', 1, 1, 0, NULL, 1551599844),
+(5, 5, '8s4cogws4g444o00cg0cs0ok8gco00gkswwcgw08', 1, 1, 0, NULL, 1551603050);
 
 -- --------------------------------------------------------
 
@@ -200,8 +201,7 @@ CREATE TABLE `applicant_users` (
   `gender` enum('female','male') COLLATE utf8_unicode_ci NOT NULL,
   `dob` date NOT NULL,
   `district_id` int(11) NOT NULL,
-  `address` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `education_level` enum('primary','college','asso_subdegree','undergraduate','postgraduate','never') COLLATE utf8_unicode_ci DEFAULT NULL,
+  `education_level` enum('primary','secondary','post_secondary','university','never') COLLATE utf8_unicode_ci DEFAULT NULL,
   `employment_status` enum('full_time','part_time','home_maker','retired','student','unemployed','self_employed') COLLATE utf8_unicode_ci DEFAULT NULL,
   `related_experience` enum('none','half_year','1_year','3_year','3_year_above') COLLATE utf8_unicode_ci DEFAULT NULL,
   `computer_skills` text COLLATE utf8_unicode_ci,
@@ -214,9 +214,9 @@ CREATE TABLE `applicant_users` (
 -- Dumping data for table `applicant_users`
 --
 
-INSERT INTO `applicant_users` (`id`, `name_zh`, `name_en`, `email`, `gender`, `dob`, `district_id`, `address`, `education_level`, `employment_status`, `related_experience`, `computer_skills`, `language_abilities`, `related_certs`, `status`) VALUES
-(3, '', '', NULL, 'female', '0000-00-00', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'active'),
-(4, '', '', NULL, 'female', '0000-00-00', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'active');
+INSERT INTO `applicant_users` (`id`, `name_zh`, `name_en`, `email`, `gender`, `dob`, `district_id`, `education_level`, `employment_status`, `related_experience`, `computer_skills`, `language_abilities`, `related_certs`, `status`) VALUES
+(3, '陳小珍', 'Jane Chan', 'janechan@email.com', 'female', '2019-03-06', 1, 'secondary', 'full_time', '3_year', '[\"1\",\"2\",\"3\"]', '[\"1\",\"2\",\"4\"]', '[\"1\"]', 'active'),
+(4, '', '', NULL, 'female', '0000-00-00', 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active');
 
 -- --------------------------------------------------------
 
@@ -254,7 +254,7 @@ CREATE TABLE `benefits` (
 
 INSERT INTO `benefits` (`id`, `name_zh`, `name_en`) VALUES
 (1, '年終獎金', 'Year-end bonuses'),
-(2, '員工分紅/認股', 'Commissios/Employee stock purchase'),
+(2, '員工分紅', 'Commissios'),
 (3, '工作優閒場所', ' Work and leisure place'),
 (4, '員工聚餐', 'Staff banquet'),
 (5, '飲食福利', 'Dietary welfare'),
@@ -366,7 +366,7 @@ CREATE TABLE `employer_users` (
   `address_zh` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
   `address_en` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
   `tel` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `scale` enum('under 20','21-100','101-500','501-1000','above 1000') COLLATE utf8_unicode_ci DEFAULT NULL,
+  `scale` enum('under_20','21_100','101_500','501_1000','above_1000') COLLATE utf8_unicode_ci DEFAULT NULL,
   `thumbnail_url` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
   `status` enum('active','hidden') COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -376,7 +376,7 @@ CREATE TABLE `employer_users` (
 --
 
 INSERT INTO `employer_users` (`id`, `name_zh`, `name_en`, `description_zh`, `description_en`, `industry_id`, `district_id`, `address_zh`, `address_en`, `tel`, `scale`, `thumbnail_url`, `status`) VALUES
-(1, '錦綉花園物業管理有限公司', 'Fairview Park Property Management Limited', '錦綉花園位於元朗市郊，擁有超過五千戶獨立屋及市中心商場的繁榮社區。', 'Fairview Park is a thriving suburban community of over 5,000 houses surrounding a commercial town centre in Yuen Long.', 12, 18, '新界元朗錦綉花園市中心G座', 'Block G, Town Centre, Fairview Park, Yuen Long, New Territories', '21232123', '501-1000', '6f3f3-index_r6_c1.jpg', 'active'),
+(1, '錦綉花園物業管理有限公司', 'Fairview Park Property Management Limited', '錦綉花園位於元朗市郊，擁有超過五千戶獨立屋及市中心商場的繁榮社區。', 'Fairview Park is a thriving suburban community of over 5,000 houses surrounding a commercial town centre in Yuen Long.', 12, 18, '新界元朗錦綉花園市中心G座', 'Block G, Town Centre, Fairview Park, Yuen Long, New Territories', '21232123', '21_100', '6f3f3-index_r6_c1.jpg', 'active'),
 (2, '', '', NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, 'active'),
 (5, '', '', NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, 'active');
 
@@ -497,8 +497,6 @@ CREATE TABLE `job_applicants` (
   `id` int(11) NOT NULL,
   `job_id` int(11) NOT NULL,
   `applicant_user_id` int(11) NOT NULL,
-  `work_date` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `work_time` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
   `applied_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `cancelled_at` timestamp NULL DEFAULT NULL,
@@ -639,7 +637,7 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `register_password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `update_mobile`, `update_mobile_code`, `remember_code`, `created_on`, `last_login`, `active`, `activated_at`, `mobile`, `info_updated`, `info_first_copy`, `remarks`) VALUES
 (1, '::1', '00000000', '$2y$08$CTTECmRGd1FdtRgHDrk6teoGAaPm30QcldGexBbiw8psREfYkmBfC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1551366538, 1551603083, 1, '2019-02-28 08:09:34', '00000000', 0, NULL, NULL),
 (2, '::1', '00010001', '$2y$08$pm2CW4sI4GbJMI8SBbS0e.MHYkF98KhkPZ1klhBKfGj3MIfgde4De', '8rSlgb2f4G', NULL, NULL, '3640', NULL, NULL, NULL, NULL, NULL, 1551591555, NULL, 0, NULL, '00010001', 0, NULL, NULL),
-(3, '::1', '11111111', '$2y$08$KTO4yMw34LqPI6VsiuSh5.XXghvAisv/hjVj2EF7n/GJ8yK3SZWJy', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1551599558, 1551599642, 1, '2019-03-03 00:53:28', '11111111', 0, NULL, NULL),
+(3, '::1', '11111111', '$2y$08$KTO4yMw34LqPI6VsiuSh5.XXghvAisv/hjVj2EF7n/GJ8yK3SZWJy', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1551599558, 1551954518, 1, '2019-03-03 00:53:28', '11111111', 1, '{\"name_zh\":\"\\u9673\\u5c0f\\u73cd\",\"name_en\":\"Janet Chan\",\"email\":\"janetchan@gmail.com\",\"gender\":\"female\",\"dob\":\"01-01-1990\",\"district_id\":1,\"address\":\"\",\"education_level\":\"post_secondary\",\"employment_status\":\"full_time\",\"related_experience\":\"none\",\"computer_skills\":\"[\\\"1\\\",\\\"2\\\",\\\"3\\\"]\",\"language_abilities\":\"[\\\"1\\\"]\",\"related_certs\":\"[\\\"1\\\"]\",\"id\":\"3\"}', NULL),
 (4, '::1', '12221222', '$2y$08$GkkF.fzwCw9QM7i28WPivO/O6KuBnPjq790nS4W1s5J/aZ8UWvyli', '7qZrlo1vi4', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1551599683, 1551599844, 1, '2019-03-03 00:57:14', '12221222', 0, NULL, NULL),
 (5, '::1', '00020002', '$2y$08$9vRAjulsb0wh0Xm2kz.dj.b4NqsKin11cuTpQbZKVQJ50C/YDuw5m', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1551601740, 1551603050, 1, '2019-03-03 01:29:25', '00020002', 0, NULL, NULL);
 
@@ -972,7 +970,7 @@ ALTER TABLE `related_certs`
 -- AUTO_INCREMENT for table `tags`
 --
 ALTER TABLE `tags`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `users`
