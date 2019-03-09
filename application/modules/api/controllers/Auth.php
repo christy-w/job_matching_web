@@ -379,6 +379,7 @@ class Auth extends API_Controller {
 			$key_value = $this->_generate_key();
 			$data = array(
 				'id'			=> $user->id,
+				'user_id'		=> $user->id,
 				'key'			=> $key_value,
 				'level'			=> 1,
 				'ignore_limits'	=> 1,
@@ -390,10 +391,10 @@ class Auth extends API_Controller {
 		else
 		{
 			// refresh API key
-			$key_value = $this->_generate_key();
-			$data = array('key' => $key_value, 'date_created' => time());
-			$updated = $this->api_keys->update($key->id, $data);
-			$user->api_key = $key_value;
+			// $key_value = $this->_generate_key();
+			// $data = array('key' => $key_value, 'date_created' => time());
+			// $updated = $this->api_keys->update($key->id, $data);
+			$user->api_key = $key->key;
 		}
 
 		return $user;
