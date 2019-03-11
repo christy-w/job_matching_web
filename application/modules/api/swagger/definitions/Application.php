@@ -13,24 +13,6 @@ class ApplicationApply {
 	 * @SWG\Property()
 	 */
     public $job_id;
-    
-	/**
-	 * @var string
-	 * @SWG\Property()
-	 */
-	public $work_date;
-	
-	/**
-	 * @var string
-	 * @SWG\Property()
-	 */
-	public $work_time;
-	
-	/**
-	 * @var string
-	 * @SWG\Property(enum={"submitted", "in_progress", "offered", "confirmed", "withdrawn", "vacancy_filled"})
-	 */
-    public $application_status;
 }
 
 /**
@@ -44,4 +26,17 @@ class ApplicationDelete {
 	 */
     public $job_id;
 }
+
+/**
+ * @SWG\Definition()
+ */
+class ApplicationUpdate {
+
+	/**
+	 * @var string
+	 * @SWG\Property()
+	 */
+    public $application_status;
+}
+
 

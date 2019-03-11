@@ -123,8 +123,6 @@ class Applicant extends API_Controller {
 
 		if ($success)
 		{
-			print_r($success);
-			exit();
             // for first time update info - save initial copy
 		    $this->load->model('user_model', 'users');
 			$user = $this->users->get($this->mUser->id);
@@ -136,7 +134,6 @@ class Applicant extends API_Controller {
 				);
 				$this->users->update($this->mUser->id, $temp);
 			}
-
 			$this->created();
 		}
 		else
