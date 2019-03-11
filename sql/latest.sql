@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 07, 2019 at 06:38 PM
+-- Generation Time: Mar 11, 2019 at 07:25 PM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.1
 
@@ -86,7 +86,7 @@ CREATE TABLE `admin_users` (
 --
 
 INSERT INTO `admin_users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`) VALUES
-(1, '127.0.0.1', 'webmaster', '$2y$08$/X5gzWjesYi78GqeAv5tA.dVGBVP7C1e1PzqnYCVe5s1qhlDIPPES', NULL, NULL, NULL, NULL, NULL, NULL, 1451900190, 1551966544, 1, 'Webmaster', ''),
+(1, '127.0.0.1', 'webmaster', '$2y$08$/X5gzWjesYi78GqeAv5tA.dVGBVP7C1e1PzqnYCVe5s1qhlDIPPES', NULL, NULL, NULL, NULL, NULL, NULL, 1451900190, 1552190217, 1, 'Webmaster', ''),
 (2, '127.0.0.1', 'admin', '$2y$08$7Bkco6JXtC3Hu6g9ngLZDuHsFLvT7cyAxiz1FzxlX5vwccvRT7nKW', NULL, NULL, NULL, NULL, NULL, NULL, 1451900228, 1549203420, 1, 'Admin', ''),
 (3, '127.0.0.1', 'manager', '$2y$08$snzIJdFXvg/rSHe0SndIAuvZyjktkjUxBXkrrGdkPy1K6r5r/dMLa', NULL, NULL, NULL, NULL, NULL, NULL, 1451900430, 1465489585, 1, 'Manager', ''),
 (4, '127.0.0.1', 'staff', '$2y$08$NigAXjN23CRKllqe3KmjYuWXD5iSRPY812SijlhGeKfkrMKde9da6', NULL, NULL, NULL, NULL, NULL, NULL, 1451900439, 1465489590, 1, 'Staff', '');
@@ -152,7 +152,11 @@ INSERT INTO `api_keys` (`id`, `user_id`, `key`, `level`, `ignore_limits`, `is_pr
 (1, 1, 'csogkkok0gwkkw0gg8cgs8488c08ogg4kcs0w8o4', 1, 1, 0, NULL, 1551603083),
 (3, 3, '80804o8so4kscwgw4ow0o8wgckwwcc4sosw4c0cw', 1, 1, 0, NULL, 1551954518),
 (4, 4, 'ok888k8gsocs8cw04wggok48g8kk8os4oww4s8co', 1, 1, 0, NULL, 1551599844),
-(5, 5, '8s4cogws4g444o00cg0cs0ok8gco00gkswwcgw08', 1, 1, 0, NULL, 1551603050);
+(5, 5, '8s4cogws4g444o00cg0cs0ok8gco00gkswwcgw08', 1, 1, 0, NULL, 1551603050),
+(6, 0, 'g8c0okk8gsgkcows08c0k8wow0s0k0cogk4c4gwo', 1, 1, 0, NULL, 1552109505),
+(7, 7, '4ks8k8k8k4gcwck8wwksww40wo84sskkgg8sck08', 1, 1, 0, NULL, 1552109621),
+(8, 8, 'wgg04koo80o0koo484wsgogw48s4wgcs044s0c04', 1, 1, 0, NULL, 1552109888),
+(9, 9, '04go0g08o8s4g8gwo4kokg888kc8k8ww4skgcsok', 1, 1, 0, NULL, 1552117686);
 
 -- --------------------------------------------------------
 
@@ -198,8 +202,8 @@ CREATE TABLE `applicant_users` (
   `name_zh` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
   `name_en` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `gender` enum('female','male') COLLATE utf8_unicode_ci NOT NULL,
-  `dob` date NOT NULL,
+  `gender` enum('female','male') COLLATE utf8_unicode_ci DEFAULT NULL,
+  `dob` date DEFAULT NULL,
   `district_id` int(11) NOT NULL,
   `education_level` enum('primary','secondary','post_secondary','university','never') COLLATE utf8_unicode_ci DEFAULT NULL,
   `employment_status` enum('full_time','part_time','home_maker','retired','student','unemployed','self_employed') COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -216,7 +220,10 @@ CREATE TABLE `applicant_users` (
 
 INSERT INTO `applicant_users` (`id`, `name_zh`, `name_en`, `email`, `gender`, `dob`, `district_id`, `education_level`, `employment_status`, `related_experience`, `computer_skills`, `language_abilities`, `related_certs`, `status`) VALUES
 (3, '陳小珍', 'Jane Chan', 'janechan@email.com', 'female', '2019-03-06', 1, 'secondary', 'full_time', '3_year', '[\"1\",\"2\",\"3\"]', '[\"1\",\"2\",\"4\"]', '[\"1\"]', 'active'),
-(4, '', '', NULL, 'female', '0000-00-00', 0, NULL, NULL, NULL, NULL, NULL, NULL, 'active');
+(4, '陳小明', 'Siu Ming', 'siuming@yahoo.com', 'male', '2019-03-09', 0, 'secondary', '', '1_year', '[\"1\",\"3\"]', '[\"1\",\"2\",\"4\"]', '[\"2\"]', 'active'),
+(6, '122', '122', '122', 'female', '2019-03-09', 0, 'secondary', '', '3_year', NULL, NULL, NULL, 'active'),
+(7, '123', '123', '123', 'male', '2019-03-09', 0, 'primary', 'home_maker', '1_year', '[\"1\"]', '[\"1\",\"2\"]', NULL, 'active'),
+(9, '小明', 'siu', 'siu', 'male', '2019-03-09', 0, 'secondary', '', 'half_year', NULL, NULL, NULL, 'active');
 
 -- --------------------------------------------------------
 
@@ -346,8 +353,14 @@ CREATE TABLE `employers_benefits` (
 INSERT INTO `employers_benefits` (`id`, `employer_id`, `benefit_id`) VALUES
 (1, 1, 2),
 (3, 1, 5),
-(4, 2, 3),
-(5, 2, 1);
+(6, 2, 2),
+(7, 2, 5),
+(8, 2, 6),
+(9, 2, 9),
+(10, 5, 2),
+(11, 5, 6),
+(12, 8, 2),
+(13, 8, 5);
 
 -- --------------------------------------------------------
 
@@ -377,8 +390,9 @@ CREATE TABLE `employer_users` (
 
 INSERT INTO `employer_users` (`id`, `name_zh`, `name_en`, `description_zh`, `description_en`, `industry_id`, `district_id`, `address_zh`, `address_en`, `tel`, `scale`, `thumbnail_url`, `status`) VALUES
 (1, '錦綉花園物業管理有限公司', 'Fairview Park Property Management Limited', '錦綉花園位於元朗市郊，擁有超過五千戶獨立屋及市中心商場的繁榮社區。', 'Fairview Park is a thriving suburban community of over 5,000 houses surrounding a commercial town centre in Yuen Long.', 12, 18, '新界元朗錦綉花園市中心G座', 'Block G, Town Centre, Fairview Park, Yuen Long, New Territories', '21232123', '21_100', '6f3f3-index_r6_c1.jpg', 'active'),
-(2, '', '', NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, 'active'),
-(5, '', '', NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, 'active');
+(2, '海洋公園', 'Ocean Park Corporation', '海洋公園致力成為一個提供平等就業機會和關懷社會的僱主，全情投入於培育及提供機會予殘疾人士和青少年，並協助他們畢業後在公園工作。', 'By working together towards an equal opportunity and caring employer, we highly involve in nurturing and providing opportunities to support included but not limited to persons with disability and young people’s transition from school to the workplace.', 18, 1, NULL, NULL, NULL, 'above_1000', '743a8-vertm.jpg', 'active'),
+(5, '悅來酒店', 'Panda Hotel', NULL, NULL, 9, 9, '尖沙咀', 'Tsim Sha Tsui', NULL, '101_500', NULL, 'active'),
+(8, '香港百樂酒店', 'Park Hotel International Ltd', NULL, NULL, 9, 9, NULL, NULL, NULL, '501_1000', NULL, 'active');
 
 -- --------------------------------------------------------
 
@@ -457,8 +471,14 @@ CREATE TABLE `jobs` (
   `location_en` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
   `monthly_wage` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `hourly_wage` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `description_zh` longtext COLLATE utf8_unicode_ci,
-  `description_en` longtext COLLATE utf8_unicode_ci,
+  `description_zh` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `description_en` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `requirements_zh` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `requirements_en` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `benefits_zh` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `benefits_en` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `others_zh` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `others_en` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
   `quota` int(11) DEFAULT NULL,
   `payment_method` enum('cash','transfer','cheque') COLLATE utf8_unicode_ci NOT NULL,
   `status` enum('active','hidden') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'active',
@@ -469,11 +489,20 @@ CREATE TABLE `jobs` (
 -- Dumping data for table `jobs`
 --
 
-INSERT INTO `jobs` (`id`, `pos`, `name_zh`, `name_en`, `type`, `employer_user_id`, `district_id`, `location_zh`, `location_en`, `monthly_wage`, `hourly_wage`, `description_zh`, `description_en`, `quota`, `payment_method`, `status`, `publish_date`) VALUES
-(1, 0, '高級保安員 (日班)', 'Senior Security Guard', 'fulltime', 1, 18, '錦綉花園', 'Fairview Park', '12000', 'string', '負責執行日常保安工作，包括巡邏、訪客出入登記、交通指揮及協助處理突然事件', '負責執行日常保安工作，包括巡邏、訪客出入登記、交通指揮及協助處理突然事件', 2, 'transfer', 'active', '2019-02-28 16:21:09'),
-(2, 0, '保安隊長 (日班)', 'Security Officer', 'fulltime', 1, 18, '錦綉花園', 'Fairview Park', '14000', 'string', '負責協助監察及執行日常保安工作及處理突發事件', '負責協助監察及執行日常保安工作及處理突發事件', 1, 'transfer', 'active', '2019-02-27 16:23:13'),
-(3, 0, '保安隊長 (夜班)', 'Security Officer', 'fulltime', 1, 18, '錦綉花園', 'Fairview Park', '14000', 'string', '負責協助監察及執行日常保安工作及處理突發事件', '負責協助監察及執行日常保安工作及處理突發事件', 1, 'transfer', 'active', '2019-02-26 16:23:37'),
-(4, 0, '保安主任', 'Security Manager', 'fulltime', 1, 18, '錦綉花園', 'Fairview Park', '18000', 'string', '監察及獨立處理日常保安管理工作，包括突發事件應變、違泊車扣鎖、培訓下屬保安知識、處理住客查詢及投訴', '監察及獨立處理日常保安管理工作，包括突發事件應變、違泊車扣鎖、培訓下屬保安知識、處理住客查詢及投訴', 1, 'transfer', 'active', '2019-02-28 16:25:10');
+INSERT INTO `jobs` (`id`, `pos`, `name_zh`, `name_en`, `type`, `employer_user_id`, `district_id`, `location_zh`, `location_en`, `monthly_wage`, `hourly_wage`, `description_zh`, `description_en`, `requirements_zh`, `requirements_en`, `benefits_zh`, `benefits_en`, `others_zh`, `others_en`, `quota`, `payment_method`, `status`, `publish_date`) VALUES
+(1, 0, '高級保安員 (日班)', 'Senior Security Guard', 'temporary', 1, 18, '錦綉花園', 'Fairview Park', '', '60', '負責執行日常保安工作，包括巡邏、訪客出入登記、交通指揮及協助處理突然事件', '負責執行日常保安工作，包括巡邏、訪客出入登記、交通指揮及協助處理突然事件', NULL, NULL, NULL, NULL, NULL, NULL, 2, 'cash', 'active', '2019-02-28 16:21:09'),
+(2, 0, '保安隊長 (日班)', 'Security Officer', 'parttime', 1, 18, '錦綉花園', 'Fairview Park', '', '70', '負責協助監察及執行日常保安工作及處理突發事件', '負責協助監察及執行日常保安工作及處理突發事件', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'cash', 'active', '2019-02-27 16:23:13'),
+(3, 0, '保安隊長 (夜班)', 'Security Officer', 'fulltime', 1, 18, '錦綉花園', 'Fairview Park', '14000', '', '負責協助監察及執行日常保安工作及處理突發事件', '負責協助監察及執行日常保安工作及處理突發事件', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'transfer', 'active', '2019-02-26 16:23:37'),
+(4, 0, '保安主任', 'Security Manager', 'fulltime', 1, 18, '錦綉花園', 'Fairview Park', '18000', '', '監察及獨立處理日常保安管理工作，包括突發事件應變、違泊車扣鎖、培訓下屬保安知識、處理住客查詢及投訴', '監察及獨立處理日常保安管理工作，包括突發事件應變、違泊車扣鎖、培訓下屬保安知識、處理住客查詢及投訴', NULL, NULL, NULL, NULL, NULL, NULL, 1, 'cheque', 'active', '2019-02-28 16:25:10'),
+(5, 99, '保安員', 'Security Guard', 'fulltime', 2, 1, '', NULL, '13500', NULL, '(月薪$13,500，另有通宵當值津貼)\r\n\r\n負責日常保安系統工作，包括：日常保安巡邏，執行保安措施及記錄狀況；確保遊人及公園財物的安全，維持公園秩序，處理突發事件等。\r\n\r\n \r\n\r\n工作要求\r\n\r\n-中三或以上程度\r\n-持有效保安人員許可證甲及乙級，並具一年以上有關保安或紀律部隊工作經驗者優先考慮\r\n-能操流利廣東話、簡單英語及普通話\r\n-能適應戶外工作及24小時輪班工作 (每天工作8小時，平均每週48小時)\r\n-必須通過辨色測試\r\n-具相關工作經驗者，可申請高級保安員\r\n-可即時上班將獲優先考慮\r\n\r\n', '(月薪$13,500，另有通宵當值津貼)\r\n\r\n負責日常保安系統工作，包括：日常保安巡邏，執行保安措施及記錄狀況；確保遊人及公園財物的安全，維持公園秩序，處理突發事件等。\r\n\r\n \r\n\r\n工作要求\r\n\r\n-中三或以上程度\r\n-持有效保安人員許可證甲及乙級，並具一年以上有關保安或紀律部隊工作經驗者優先考慮\r\n-能操流利廣東話、簡單英語及普通話\r\n-能適應戶外工作及24小時輪班工作 (每天工作8小時，平均每週48小時)\r\n-必須通過辨色測試\r\n-具相關工作經驗者，可申請高級保安員\r\n-可即時上班將獲優先考慮\r\n\r\n', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'transfer', 'active', '2019-03-10 04:05:25'),
+(6, 99, '短期/季節性保安員', 'Short Term / Seasonal Security Guard', 'parttime', 2, 1, '', NULL, NULL, '60', '時薪: HK$60/小時\r\n 合約期: 即日至2019年5月13日\r\n 工作時間: 上午9時至晚上8時 (按輪值冊編配而定，每天約8-10小時)\r\n每週工作3 – 6天，包括星期六、日、公眾假期及假期前夕\r\n\r\n-負責維持秩序及遊客安全\r\n\r\n \r\n\r\n工作要求\r\n\r\n- 持有效保安人員許可証甲及乙級\r\n- 能說流利廣東話、簡單英語及普通話\r\n- 誠懇有禮、具責任感\r\n\r\n', '時薪: HK$60/小時\r\n 合約期: 即日至2019年5月13日\r\n 工作時間: 上午9時至晚上8時 (按輪值冊編配而定，每天約8-10小時)\r\n每週工作3 – 6天，包括星期六、日、公眾假期及假期前夕\r\n\r\n-負責維持秩序及遊客安全\r\n\r\n \r\n\r\n工作要求\r\n\r\n- 持有效保安人員許可証甲及乙級\r\n- 能說流利廣東話、簡單英語及普通話\r\n- 誠懇有禮、具責任感\r\n\r\n', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'cash', 'active', '2019-03-10 04:05:25'),
+(7, 99, '保安員', 'Security Guard', 'fulltime', 5, 9, '', NULL, '13000', NULL, ' 職責:\r\n\r\n酒店保安和顧客服務工作\r\n每天工作9小時，24小時輪班\r\n \r\n\r\n要求:\r\n\r\n持有急救證書 (可於入職後考取)\r\n持有保安人員許可證\r\n具基本電腦操作知識\r\n \r\n\r\n福利:\r\n\r\n每月6天休息日\r\n酌情性花紅\r\n供膳食\r\n年假 12天、全薪侍產假、婚假及恩恤假\r\n醫療福利 (門診及住院)\r\n酒店餐飲優惠、海外酒店住宿優惠\r\n在職培訓及進修津貼', ' 職責:\r\n\r\n酒店保安和顧客服務工作\r\n每天工作9小時，24小時輪班\r\n \r\n\r\n要求:\r\n\r\n持有急救證書 (可於入職後考取)\r\n持有保安人員許可證\r\n具基本電腦操作知識\r\n \r\n\r\n福利:\r\n\r\n每月6天休息日\r\n酌情性花紅\r\n供膳食\r\n年假 12天、全薪侍產假、婚假及恩恤假\r\n醫療福利 (門診及住院)\r\n酒店餐飲優惠、海外酒店住宿優惠\r\n在職培訓及進修津貼', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'transfer', 'active', '2019-03-10 04:27:40'),
+(8, 99, '保安主管', 'Security supervisor', 'fulltime', 5, 9, '', NULL, '16000', NULL, '負責巡邏酒店室地方、各項設施及一般保安工作\r\n安排保安員工作崗位\r\n最小具有1年酒店保安主管工作經驗\r\n懂基本電腦操作\r\n具良好溝通能力和人際技巧\r\n積極的工作態度, 工作熱誠，待人有禮, 具良好顧客服務態度及團隊精神\r\n須持有效保安員許可證\r\n流利粵語、一般英語\r\n需輪休、輪班工作\r\n如保安主管經驗較少的候選人可以申請為高級保安主任/保安。 ', 'Responsible for patrolling areas of the hotel, facilities and general security work;\r\nArranging posts for security guards;\r\nMinimum of 1 year as Security supervisor in the hotel industry;\r\nknowledge of basic computer operation\r\nStrong communication and interpersonal skills;\r\nPositive attitude, enthusiasm, Polite, customer-oriented and a good team player;\r\nHolder of valid Security Personnel Permit Certificate;\r\nGood command of Chinese and general English; and\r\nShift duty is required;', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'transfer', 'active', '2019-03-10 04:27:40'),
+(9, 99, '保安員', 'Security Guard', 'parttime', 5, 3, '', NULL, '', '70', ' 職責:\r\n\r\n酒店保安和顧客服務工作\r\n每天工作9小時，24小時輪班\r\n \r\n\r\n要求:\r\n\r\n持有急救證書 (可於入職後考取)\r\n持有保安人員許可證\r\n具基本電腦操作知識\r\n \r\n\r\n福利:\r\n\r\n每月6天休息日\r\n酌情性花紅\r\n供膳食\r\n年假 12天、全薪侍產假、婚假及恩恤假\r\n醫療福利 (門診及住院)\r\n酒店餐飲優惠、海外酒店住宿優惠\r\n在職培訓及進修津貼', ' 職責:\r\n\r\n酒店保安和顧客服務工作\r\n每天工作9小時，24小時輪班\r\n \r\n\r\n要求:\r\n\r\n持有急救證書 (可於入職後考取)\r\n持有保安人員許可證\r\n具基本電腦操作知識\r\n \r\n\r\n福利:\r\n\r\n每月6天休息日\r\n酌情性花紅\r\n供膳食\r\n年假 12天、全薪侍產假、婚假及恩恤假\r\n醫療福利 (門診及住院)\r\n酒店餐飲優惠、海外酒店住宿優惠\r\n在職培訓及進修津貼', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'transfer', 'active', '2019-03-10 04:28:56'),
+(10, 99, '兼職保安員', 'Part Time Security Guard', 'parttime', 5, 9, '', NULL, NULL, '65', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'cheque', 'active', '2019-03-10 04:32:28'),
+(11, 99, '日更保安員', 'Day Shift Security Guard', 'parttime', 8, 5, '', NULL, NULL, '50', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'cheque', 'active', '2019-03-10 04:32:28'),
+(12, 99, '保安主任', 'Security Officer', 'fulltime', 8, 9, '', NULL, '12000', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'transfer', 'active', '2019-03-10 04:35:46'),
+(13, 99, '保員主管', 'Security Manager', 'fulltime', 8, 9, '', NULL, '13500', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'transfer', 'active', '2019-03-10 04:35:46');
 
 -- --------------------------------------------------------
 
@@ -497,25 +526,23 @@ CREATE TABLE `job_applicants` (
   `id` int(11) NOT NULL,
   `job_id` int(11) NOT NULL,
   `applicant_user_id` int(11) NOT NULL,
-  `applied_at` timestamp NULL DEFAULT NULL,
+  `applied_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL,
   `cancelled_at` timestamp NULL DEFAULT NULL,
-  `application_status` enum('submitted','in_progress','offered','confirmed','withdrawn','vacancy_filled') COLLATE utf8_unicode_ci NOT NULL,
+  `last_updated_at` timestamp NULL DEFAULT NULL,
+  `application_status` enum('submitted','in_progress','offered','accepted_offer','withdrawn','vacancy_filled','rejected_offer','cancelled') COLLATE utf8_unicode_ci NOT NULL,
   `status` enum('active','hidden') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'active'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- --------------------------------------------------------
-
 --
--- Table structure for table `job_slots`
+-- Dumping data for table `job_applicants`
 --
 
-CREATE TABLE `job_slots` (
-  `id` int(11) NOT NULL,
-  `job_id` int(11) NOT NULL,
-  `date` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `time` varchar(100) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+INSERT INTO `job_applicants` (`id`, `job_id`, `applicant_user_id`, `applied_at`, `updated_at`, `cancelled_at`, `last_updated_at`, `application_status`, `status`) VALUES
+(1, 13, 6, '2019-03-11 05:44:08', NULL, '2019-03-11 05:44:33', '2019-03-11 05:44:33', 'cancelled', 'active'),
+(2, 11, 6, '2019-03-11 05:44:19', '2019-03-11 05:46:30', NULL, '2019-03-11 05:46:30', 'accepted_offer', 'active'),
+(3, 10, 6, '2019-03-11 05:46:42', NULL, NULL, '2019-03-11 05:46:42', 'submitted', 'active'),
+(4, 13, 4, '2019-03-11 06:13:55', NULL, NULL, '2019-03-11 06:13:55', 'submitted', 'active');
 
 -- --------------------------------------------------------
 
@@ -635,11 +662,15 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `register_password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `update_mobile`, `update_mobile_code`, `remember_code`, `created_on`, `last_login`, `active`, `activated_at`, `mobile`, `info_updated`, `info_first_copy`, `remarks`) VALUES
-(1, '::1', '00000000', '$2y$08$CTTECmRGd1FdtRgHDrk6teoGAaPm30QcldGexBbiw8psREfYkmBfC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1551366538, 1551603083, 1, '2019-02-28 08:09:34', '00000000', 0, NULL, NULL),
+(1, '::1', '00000000', '$2y$08$CTTECmRGd1FdtRgHDrk6teoGAaPm30QcldGexBbiw8psREfYkmBfC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1551366538, 1552310531, 1, '2019-02-28 08:09:34', '00000000', 0, NULL, NULL),
 (2, '::1', '00010001', '$2y$08$pm2CW4sI4GbJMI8SBbS0e.MHYkF98KhkPZ1klhBKfGj3MIfgde4De', '8rSlgb2f4G', NULL, NULL, '3640', NULL, NULL, NULL, NULL, NULL, 1551591555, NULL, 0, NULL, '00010001', 0, NULL, NULL),
-(3, '::1', '11111111', '$2y$08$KTO4yMw34LqPI6VsiuSh5.XXghvAisv/hjVj2EF7n/GJ8yK3SZWJy', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1551599558, 1551954518, 1, '2019-03-03 00:53:28', '11111111', 1, '{\"name_zh\":\"\\u9673\\u5c0f\\u73cd\",\"name_en\":\"Janet Chan\",\"email\":\"janetchan@gmail.com\",\"gender\":\"female\",\"dob\":\"01-01-1990\",\"district_id\":1,\"address\":\"\",\"education_level\":\"post_secondary\",\"employment_status\":\"full_time\",\"related_experience\":\"none\",\"computer_skills\":\"[\\\"1\\\",\\\"2\\\",\\\"3\\\"]\",\"language_abilities\":\"[\\\"1\\\"]\",\"related_certs\":\"[\\\"1\\\"]\",\"id\":\"3\"}', NULL),
-(4, '::1', '12221222', '$2y$08$GkkF.fzwCw9QM7i28WPivO/O6KuBnPjq790nS4W1s5J/aZ8UWvyli', '7qZrlo1vi4', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1551599683, 1551599844, 1, '2019-03-03 00:57:14', '12221222', 0, NULL, NULL),
-(5, '::1', '00020002', '$2y$08$9vRAjulsb0wh0Xm2kz.dj.b4NqsKin11cuTpQbZKVQJ50C/YDuw5m', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1551601740, 1551603050, 1, '2019-03-03 01:29:25', '00020002', 0, NULL, NULL);
+(3, '::1', '11111111', '$2y$08$KTO4yMw34LqPI6VsiuSh5.XXghvAisv/hjVj2EF7n/GJ8yK3SZWJy', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1551599558, 1552113956, 1, '2019-03-03 00:53:28', '11111111', 1, '{\"name_zh\":\"\\u9673\\u5c0f\\u73cd\",\"name_en\":\"Janet Chan\",\"email\":\"janetchan@gmail.com\",\"gender\":\"female\",\"dob\":\"01-01-1990\",\"district_id\":1,\"address\":\"\",\"education_level\":\"post_secondary\",\"employment_status\":\"full_time\",\"related_experience\":\"none\",\"computer_skills\":\"[\\\"1\\\",\\\"2\\\",\\\"3\\\"]\",\"language_abilities\":\"[\\\"1\\\"]\",\"related_certs\":\"[\\\"1\\\"]\",\"id\":\"3\"}', NULL),
+(4, '::1', '12221222', '$2y$08$GkkF.fzwCw9QM7i28WPivO/O6KuBnPjq790nS4W1s5J/aZ8UWvyli', '7qZrlo1vi4', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1551599683, 1552136685, 1, '2019-03-03 00:57:14', '12221222', 0, NULL, NULL),
+(5, '::1', '00020002', '$2y$08$9vRAjulsb0wh0Xm2kz.dj.b4NqsKin11cuTpQbZKVQJ50C/YDuw5m', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1551601740, 1551603050, 1, '2019-03-03 01:29:25', '00020002', 0, NULL, NULL),
+(6, '::1', '13331333', '$2y$08$VxdsiyHQwDvs7iRv4ePNNO6nA.eUfmL.wW/PIuZMkH93RXVvA6IKK', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1552109480, 1552124821, 1, '2019-03-08 22:31:45', '13331333', 0, NULL, NULL),
+(7, '::1', '14441444', '$2y$08$sTOFmxZTp/gXTiw6jXGoB.6zR3KDavf2hjWctOtF6Bq4SoqOMuM0i', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1552109611, 1552124420, 1, '2019-03-08 22:33:41', '14441444', 0, NULL, NULL),
+(8, '::1', '00030003', '$2y$08$efqwwTOgaszd3J2ZM.c7HeiK3mh9FEVVmwsdtIMrxbJyB7yxSuIEW', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1552109804, 1552110371, 1, '2019-03-08 22:38:08', '00030003', 0, NULL, NULL),
+(9, '::1', '15551555', '$2y$08$sUcoyfQ4QJln7y0OP83egeNrtAZCxzKlH6NVg5RwBL9j5d5lteX/W', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1552117654, 1552123052, 1, '2019-03-09 00:48:06', '15551555', 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -662,7 +693,11 @@ INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
 (2, 2, 1),
 (3, 3, 2),
 (4, 4, 2),
-(5, 5, 1);
+(5, 5, 1),
+(6, 6, 2),
+(7, 7, 2),
+(8, 8, 1),
+(9, 9, 2);
 
 --
 -- Indexes for dumped tables
@@ -789,12 +824,6 @@ ALTER TABLE `job_applicants`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `job_slots`
---
-ALTER TABLE `job_slots`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `language_abilities`
 --
 ALTER TABLE `language_abilities`
@@ -868,7 +897,7 @@ ALTER TABLE `api_access`
 -- AUTO_INCREMENT for table `api_keys`
 --
 ALTER TABLE `api_keys`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `api_limits`
@@ -910,7 +939,7 @@ ALTER TABLE `districts`
 -- AUTO_INCREMENT for table `employers_benefits`
 --
 ALTER TABLE `employers_benefits`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `groups`
@@ -928,7 +957,7 @@ ALTER TABLE `industries`
 -- AUTO_INCREMENT for table `jobs`
 --
 ALTER TABLE `jobs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `jobs_tags`
@@ -940,13 +969,7 @@ ALTER TABLE `jobs_tags`
 -- AUTO_INCREMENT for table `job_applicants`
 --
 ALTER TABLE `job_applicants`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `job_slots`
---
-ALTER TABLE `job_slots`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `language_abilities`
@@ -976,13 +999,13 @@ ALTER TABLE `tags`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `users_groups`
 --
 ALTER TABLE `users_groups`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

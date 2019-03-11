@@ -30,10 +30,12 @@ class Job_model extends MY_Model {
 
         // Append Employer info
         $this->load->model('employer_user_model', 'employers');
+		$this->load->model('job_applicant_model', 'applications');
         // $this->load->model('tag_model', 'tags');
         foreach ($jobs as $job)
 		{
             $job->employer = $this->employers->get_by_user_id($job->employer_user_id);
+			$job->applications = $this->applications->get_many_by(array('job_id' => $job->id));
 			// $job->tags = $this->tags->get_by_job_id($job->id);
         }
 		return $jobs;
