@@ -3,18 +3,18 @@
 class Job_model extends MY_Model {
     protected $_table = 'jobs';
 
-    // public function create_new($data)
-	// {
-	// 	// fetch user data
-	// 	$this->load->model('employer_user_model', 'employers');
-    //     $employer = $this->employers->get($data['employer_user_id']);
+    public function create_new($data)
+	{
+		// fetch user data
+		$this->load->model('employer_user_model', 'employers');
+        $employer = $this->employers->get($data['employer_user_id']);
         
-    //     if ( empty($employer) )
-	// 		return FALSE;
+        if ( empty($employer) )
+			return FALSE;
 
-    //     $created = parent::insert($data);
-	// 	return $created;
-	// }
+        $created = parent::insert($data);
+		return $created;
+	}
 
 	public function get_all_jobs()
 	{
@@ -62,5 +62,20 @@ class Job_model extends MY_Model {
 		$job->applications = $this->applications->get_many_by(array('job_id' => $job_id));
 
 		return $job;
+	}
+
+	public function get_job_applications($job_id)
+	{
+		$this->load->model('job_applicant_model', 'applications');
+		$data = $this->applications->get_many_by(array('job_id' => $job_id));
+
+
+        $this->load->model('applicant_user_model', 'applicants');
+		foreach ($data as $applicant) 
+		{
+			$applicant->applicant = $this->applicants->get_by_user_id($applicant->applicant_user_id);
+		}
+
+		return $data;
 	}
 }

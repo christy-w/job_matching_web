@@ -60,6 +60,39 @@ class Job extends API_Controller {
 		$this->response($data);
 	}
 
+	/**
+	* @SWG\Get(
+	* path="/job/applications/{id}",
+	* tags={"job"},
+	* summary="Job applications",
+	* @SWG\Parameter(
+	* 		in="header",
+	* 		name="X-API-KEY",
+	* 		description="API Key",
+	* 		default="anonymous",
+	* 		required=true,
+	* 		type="string"
+	* ),
+	* @SWG\Parameter(
+	* 		in="path",
+	* 		name="id",
+	* 		description="Job ID",
+	* 		required=true,
+	* 		type="integer"
+	* ),
+	* @SWG\Response(
+	* 		response="200",
+	* 		description="Employer object",
+	* 		@SWG\Schema(ref="#/definitions/JobCreate")
+	* )
+	* )
+	*/
+	public function applications_get($id)
+	{
+		$data = $this->jobs->get_job_applications($id);
+		$this->response($data);
+	}
+
     /**
 	 * @SWG\Post(
 	 * 	path="/job",

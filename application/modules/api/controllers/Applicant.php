@@ -39,13 +39,6 @@ class Applicant extends API_Controller {
 	public function id_get($id)
 	{
         $data = $this->applicants->get_by_user_id($id);
-        
-		$fields = array('computer_skills', 'language_abilities', 'related_certs');
-		foreach ($fields as $field)
-		{
-			if ( !empty($data->$field) )
-				$data->$field = json_decode($data->$field);
-		}
 		$this->response($data);
     }
     

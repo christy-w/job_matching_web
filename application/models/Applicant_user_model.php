@@ -17,7 +17,14 @@ class Applicant_user_model extends MY_Model {
 		// $this->db->join('districts AS d', 'employer_users.district_id = d.id', 'LEFT');
 		// $this->db->join('industries AS i', 'employer_users.industry_id = i.id', 'LEFT');
 		// $this->db->where('employer_users.status', 'active');
+		$data = parent::get($user_id);
+		$fields = array('computer_skills', 'language_abilities', 'related_certs');
+		foreach ($fields as $field)
+		{
+			if ( !empty($data->$field) )
+				$data->$field = json_decode($data->$field);
+		}
 
-		return parent::get($user_id);
+		return $data;
 	}
 }
