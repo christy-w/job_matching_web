@@ -18,6 +18,10 @@ class Applicant_user_model extends MY_Model {
 		// $this->db->join('industries AS i', 'employer_users.industry_id = i.id', 'LEFT');
 		// $this->db->where('employer_users.status', 'active');
 		$data = parent::get($user_id);
+
+		$this->load->model('user_modal', 'users');
+		$data->mobile = $this->users->get($user_id)->mobile;
+		
 		$fields = array('computer_skills', 'language_abilities', 'related_certs');
 		foreach ($fields as $field)
 		{
