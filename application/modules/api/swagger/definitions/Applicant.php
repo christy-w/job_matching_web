@@ -78,3 +78,38 @@ class ApplicantUpdate {
 	public $related_certs;
 }
 
+/**
+ * @SWG\Definition()
+ */
+class ApplicantFeedback {
+	/**
+	 * @var int
+	 * @SWG\Property()
+	 */
+    public $job_id;
+    
+	/**
+	 * @var int
+	 * @SWG\Property()
+	 */
+	public $applicant_user_id;
+	
+	/**
+	 * @var string
+	 * @SWG\Property()
+	 */
+    public $username;
+	
+	/**
+	 * @var string
+	 * @SWG\Property()
+	 */
+    public $feedback;
+	
+	/**
+	 * @var int
+	 * @SWG\Property()
+	 */
+    public $rating;
+}
+

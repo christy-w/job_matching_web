@@ -133,5 +133,68 @@ class Applicant extends API_Controller {
 		{
 			$this->error('update_failed');
 		}
-    }
+	}
+	
+	/**
+	 * @SWG\Post(
+	 * 	path="/applicant/feedback",
+	 * 	tags={"applicant"},
+	 *	summary="For employer to give feedback",
+	 * 	@SWG\Parameter(
+	 * 		in="header",
+	 * 		name="X-API-KEY",
+	 * 		description="API KEY",
+	 * 		default="anonymous",
+	 * 		required=true,
+	 * 		type="string"
+	 * 	),
+	 * 
+	 * 	@SWG\Parameter(
+	 * 		in="body",
+	 * 		name="body",
+	 * 		description="Update a user",
+	 * 		required=true,
+	 * 		@SWG\Schema(ref="#/definitions/ApplicantFeedback")
+	 * 	),
+	 * 	@SWG\Response(
+	 * 		response="200",
+	 * 		description="Successful operation"
+	 * 	)
+	 * )
+	 */
+	public function feedback_post()
+	{	
+		$post_data = array(
+			'username'	=>  $this->post('username'),
+			'feedback'	=> 	$this->post('feedback'),
+			'rating'	=>	$this->post('rating'),
+			'job_id'	=> 	$this->post('job_id'),
+			'applicant_user_id'	=>	$this->post('applicant_user_id')
+		);
+		
+        $identity = array(
+            'job_id'            => $this->post('job_id'),
+            'applicant_user_id' => $this->post('applicant_user_id')
+        );
+
+		$this->load->model('applicant_feedback_model', 'applicant_feedbacks');
+        $feedback_count = $this->applicant_feedbacks->count_by($identity);
+        if (empty($feedback_count))
+        {   
+            // Create application
+            $success = $this->applicant_feedbacks->insert($post_data);
+        } 
+        else
+        {
+            $this->error('already_commented');
+        }
+
+        if ($success) {
+            $this->created();
+        }
+        else
+        {
+            $this->error('feedback_failed');
+        }
+	}
 }
