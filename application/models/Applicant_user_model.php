@@ -21,7 +21,19 @@ class Applicant_user_model extends MY_Model {
 
 		$this->load->model('user_modal', 'users');
 		$data->mobile = $this->users->get($user_id)->mobile;
-		
+
+		$this->load->model('applicant_feedback_model', 'applicant_feedbacks');
+		$feedbacks = $this->applicant_feedbacks->get_many_by(array('applicant_user_id' => $user_id));
+		$data->feedbacks = $feedbacks;
+
+		$rating_sum = 0;
+		$feedback_count = count($feedbacks);
+		foreach ($feedbacks as $feedback)
+		{
+			$rating_sum += $feedback->rating;
+		}
+		$data->avg_ratings = $rating_sum / $feedback_count;
+
 		$fields = array('computer_skills', 'language_abilities', 'related_certs');
 		foreach ($fields as $field)
 		{
