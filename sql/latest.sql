@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 11, 2019 at 07:25 PM
+-- Generation Time: Mar 18, 2019 at 04:15 PM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.1
 
@@ -86,7 +86,7 @@ CREATE TABLE `admin_users` (
 --
 
 INSERT INTO `admin_users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`) VALUES
-(1, '127.0.0.1', 'webmaster', '$2y$08$/X5gzWjesYi78GqeAv5tA.dVGBVP7C1e1PzqnYCVe5s1qhlDIPPES', NULL, NULL, NULL, NULL, NULL, NULL, 1451900190, 1552190217, 1, 'Webmaster', ''),
+(1, '127.0.0.1', 'webmaster', '$2y$08$/X5gzWjesYi78GqeAv5tA.dVGBVP7C1e1PzqnYCVe5s1qhlDIPPES', NULL, NULL, NULL, NULL, NULL, NULL, 1451900190, 1552718264, 1, 'Webmaster', ''),
 (2, '127.0.0.1', 'admin', '$2y$08$7Bkco6JXtC3Hu6g9ngLZDuHsFLvT7cyAxiz1FzxlX5vwccvRT7nKW', NULL, NULL, NULL, NULL, NULL, NULL, 1451900228, 1549203420, 1, 'Admin', ''),
 (3, '127.0.0.1', 'manager', '$2y$08$snzIJdFXvg/rSHe0SndIAuvZyjktkjUxBXkrrGdkPy1K6r5r/dMLa', NULL, NULL, NULL, NULL, NULL, NULL, 1451900430, 1465489585, 1, 'Manager', ''),
 (4, '127.0.0.1', 'staff', '$2y$08$NigAXjN23CRKllqe3KmjYuWXD5iSRPY812SijlhGeKfkrMKde9da6', NULL, NULL, NULL, NULL, NULL, NULL, 1451900439, 1465489590, 1, 'Staff', '');
@@ -194,6 +194,31 @@ CREATE TABLE `api_logs` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `applicant_feedbacks`
+--
+
+CREATE TABLE `applicant_feedbacks` (
+  `id` int(11) NOT NULL,
+  `job_id` int(11) NOT NULL,
+  `applicant_user_id` int(11) NOT NULL,
+  `username` varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+  `feedback` text COLLATE utf8_unicode_ci NOT NULL,
+  `rating` int(11) NOT NULL,
+  `publish_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `applicant_feedbacks`
+--
+
+INSERT INTO `applicant_feedbacks` (`id`, `job_id`, `applicant_user_id`, `username`, `feedback`, `rating`, `publish_date`) VALUES
+(1, 3, 6, 'employer1', 'Good', 3, '2019-03-18 10:39:20'),
+(2, 2, 3, 'hi', 'hi', 4, '2018-03-18 13:03:48'),
+(3, 3, 3, '123', '123', 5, '2019-03-18 13:11:47');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `applicant_users`
 --
 
@@ -211,6 +236,7 @@ CREATE TABLE `applicant_users` (
   `computer_skills` text COLLATE utf8_unicode_ci,
   `language_abilities` text COLLATE utf8_unicode_ci,
   `related_certs` text COLLATE utf8_unicode_ci,
+  `thumbnail_url` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
   `status` enum('active','hidden') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'active'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -218,12 +244,12 @@ CREATE TABLE `applicant_users` (
 -- Dumping data for table `applicant_users`
 --
 
-INSERT INTO `applicant_users` (`id`, `name_zh`, `name_en`, `email`, `gender`, `dob`, `district_id`, `education_level`, `employment_status`, `related_experience`, `computer_skills`, `language_abilities`, `related_certs`, `status`) VALUES
-(3, '陳小珍', 'Jane Chan', 'janechan@email.com', 'female', '2019-03-06', 1, 'secondary', 'full_time', '3_year', '[\"1\",\"2\",\"3\"]', '[\"1\",\"2\",\"4\"]', '[\"1\"]', 'active'),
-(4, '陳小明', 'Siu Ming', 'siuming@yahoo.com', 'male', '2019-03-09', 0, 'secondary', '', '1_year', '[\"1\",\"3\"]', '[\"1\",\"2\",\"4\"]', '[\"2\"]', 'active'),
-(6, '122', '122', '122', 'female', '2019-03-09', 0, 'secondary', '', '3_year', NULL, NULL, NULL, 'active'),
-(7, '123', '123', '123', 'male', '2019-03-09', 0, 'primary', 'home_maker', '1_year', '[\"1\"]', '[\"1\",\"2\"]', NULL, 'active'),
-(9, '小明', 'siu', 'siu', 'male', '2019-03-09', 0, 'secondary', '', 'half_year', NULL, NULL, NULL, 'active');
+INSERT INTO `applicant_users` (`id`, `name_zh`, `name_en`, `email`, `gender`, `dob`, `district_id`, `education_level`, `employment_status`, `related_experience`, `computer_skills`, `language_abilities`, `related_certs`, `thumbnail_url`, `status`) VALUES
+(3, '陳小珍', 'Jane Chan', 'janechan@email.com', 'female', '1990-03-06', 1, 'secondary', 'full_time', '3_year', '[\"1\",\"2\",\"3\"]', '[\"1\",\"2\",\"4\"]', '[\"1\"]', NULL, 'active'),
+(4, '陳大文', 'Tai Man', 'taiman@email.com', 'male', '2019-03-17', 0, 'secondary', 'unemployed', 'none', '[\"1\",\"3\"]', '[\"1\",\"2\"]', '[\"2\"]', NULL, 'active'),
+(6, '陳陳', 'Chan', 'chan@email.com', 'female', '2019-03-17', 0, 'primary', 'full_time', '3_year_above', NULL, '[\"1\",\"2\"]', '[\"2\",\"5\"]', NULL, 'active'),
+(7, '123', '123', '123', 'male', '2019-03-09', 0, 'primary', 'home_maker', '1_year', '[\"1\"]', '[\"1\",\"2\"]', NULL, NULL, 'active'),
+(9, '小明', 'siu', 'siu', 'male', '2019-03-09', 0, 'secondary', '', 'half_year', NULL, NULL, NULL, NULL, 'active');
 
 -- --------------------------------------------------------
 
@@ -471,14 +497,14 @@ CREATE TABLE `jobs` (
   `location_en` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
   `monthly_wage` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `hourly_wage` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `description_zh` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `description_en` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `requirements_zh` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `requirements_en` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `benefits_zh` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `benefits_en` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `others_zh` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `others_en` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `description_zh` text COLLATE utf8_unicode_ci,
+  `description_en` text COLLATE utf8_unicode_ci,
+  `requirements_zh` text COLLATE utf8_unicode_ci,
+  `requirements_en` text COLLATE utf8_unicode_ci,
+  `benefits_zh` text COLLATE utf8_unicode_ci,
+  `benefits_en` text COLLATE utf8_unicode_ci,
+  `others_zh` text COLLATE utf8_unicode_ci,
+  `others_en` text COLLATE utf8_unicode_ci,
   `quota` int(11) DEFAULT NULL,
   `payment_method` enum('cash','transfer','cheque') COLLATE utf8_unicode_ci NOT NULL,
   `status` enum('active','hidden') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'active',
@@ -502,7 +528,9 @@ INSERT INTO `jobs` (`id`, `pos`, `name_zh`, `name_en`, `type`, `employer_user_id
 (10, 99, '兼職保安員', 'Part Time Security Guard', 'parttime', 5, 9, '', NULL, NULL, '65', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'cheque', 'active', '2019-03-10 04:32:28'),
 (11, 99, '日更保安員', 'Day Shift Security Guard', 'parttime', 8, 5, '', NULL, NULL, '50', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'cheque', 'active', '2019-03-10 04:32:28'),
 (12, 99, '保安主任', 'Security Officer', 'fulltime', 8, 9, '', NULL, '12000', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'transfer', 'active', '2019-03-10 04:35:46'),
-(13, 99, '保員主管', 'Security Manager', 'fulltime', 8, 9, '', NULL, '13500', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'transfer', 'active', '2019-03-10 04:35:46');
+(13, 99, '保員主管', 'Security Manager', 'fulltime', 8, 9, '', NULL, '13500', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'transfer', 'active', '2019-03-10 04:35:46'),
+(14, 99, '高級保安員', 'Senior Security Guard', 'fulltime', 5, 1, '', NULL, '12000', NULL, '<ul style=\"margin: 0px; padding-right: 0px; padding-bottom: 12px; padding-left: 0px; border: 0px; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-stretch: inherit; font-size: 14px; line-height: inherit; font-family: Arial, Helvetica, sans-serif; vertical-align: baseline; list-style: none; box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(33, 33, 33);\">\n	<li style=\"margin: 0px 0px 0px 32px; padding: 0px 0px 4px; border: 0px; font: inherit; vertical-align: baseline; box-sizing: inherit; -webkit-tap-highlight-color: transparent; list-style: disc outside;\">\n		<span style=\"margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: 10pt; line-height: inherit; font-family: inherit; vertical-align: baseline; box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(0, 0, 0);\">酒店保安和顧客服務工作</span></li>\n	<li style=\"margin: 0px 0px 0px 32px; padding: 0px 0px 4px; border: 0px; font: inherit; vertical-align: baseline; box-sizing: inherit; -webkit-tap-highlight-color: transparent; list-style: disc outside;\">\n		<span style=\"margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: 10pt; line-height: inherit; vertical-align: baseline; box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(0, 0, 0);\">每天工作9小時，24小時輪班</span></li>\n</ul>\n', '<ul style=\"margin: 0px; padding-right: 0px; padding-bottom: 12px; padding-left: 0px; border: 0px; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-stretch: inherit; font-size: 14px; line-height: inherit; font-family: Arial, Helvetica, sans-serif; vertical-align: baseline; list-style: none; box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(33, 33, 33);\">\n	<li style=\"margin: 0px 0px 0px 32px; padding: 0px 0px 4px; border: 0px; font: inherit; vertical-align: baseline; box-sizing: inherit; -webkit-tap-highlight-color: transparent; list-style: disc outside;\">\n		<span style=\"margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: 10pt; line-height: inherit; font-family: inherit; vertical-align: baseline; box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(0, 0, 0);\">酒店保安和顧客服務工作</span></li>\n	<li style=\"margin: 0px 0px 0px 32px; padding: 0px 0px 4px; border: 0px; font: inherit; vertical-align: baseline; box-sizing: inherit; -webkit-tap-highlight-color: transparent; list-style: disc outside;\">\n		<span style=\"margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: 10pt; line-height: inherit; vertical-align: baseline; box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(0, 0, 0);\">每天工作9小時，24小時輪班</span></li>\n</ul>\n', '<p>\n	&nbsp;</p>\n<p>\n	&lt;ul style=&quot;margin: 0px; padding-right: 0px; padding-bottom: 12px; padding-left: 0px; border: 0px; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-stretch: inherit; font-size: 16px; line-height: inherit; font-family: Muli, -apple-system, system-ui, &quot; segoe=&quot;&quot; ui&quot;,=&quot;&quot; roboto,=&quot;&quot; &quot;noto=&quot;&quot; sans&quot;,=&quot;&quot; ubuntu,=&quot;&quot; &quot;droid=&quot;&quot; &quot;helvetica=&quot;&quot; neue&quot;,=&quot;&quot; arial,=&quot;&quot; sans-serif;=&quot;&quot; vertical-align:=&quot;&quot; baseline;=&quot;&quot; list-style:=&quot;&quot; none;=&quot;&quot; box-sizing:=&quot;&quot; inherit;=&quot;&quot; -webkit-tap-highlight-color:=&quot;&quot; transparent;=&quot;&quot; color:=&quot;&quot; rgb(33,=&quot;&quot; 33,=&quot;&quot; 33);&quot;=&quot;&quot;&gt;</p>\n<p>\n	&nbsp;</p>\n<ul>\n	<li style=\"margin: 0px 0px 0px 32px; padding: 0px 0px 4px; border: 0px; font: inherit; vertical-align: baseline; box-sizing: inherit; -webkit-tap-highlight-color: transparent; list-style: disc outside;\">\n		<span style=\"margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: 10pt; line-height: inherit; font-family: inherit; vertical-align: baseline; box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(0, 0, 0);\">持有急救證書 (可於入職後考取)</span></li>\n	<li style=\"margin: 0px 0px 0px 32px; padding: 0px 0px 4px; border: 0px; font: inherit; vertical-align: baseline; box-sizing: inherit; -webkit-tap-highlight-color: transparent; list-style: disc outside;\">\n		<span style=\"margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: 10pt; line-height: inherit; font-family: inherit; vertical-align: baseline; box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(0, 0, 0);\">持有保安人員許可證</span></li>\n	<li style=\"margin: 0px 0px 0px 32px; padding: 0px 0px 4px; border: 0px; font: inherit; vertical-align: baseline; box-sizing: inherit; -webkit-tap-highlight-color: transparent; list-style: disc outside;\">\n		<span style=\"margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: 10pt; line-height: inherit; font-family: inherit; vertical-align: baseline; box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(0, 0, 0);\">具基本電腦操作知識</span></li>\n</ul>\n', '<p>\n	&nbsp;</p>\n<p>\n	&lt;ul style=&quot;margin: 0px; padding-right: 0px; padding-bottom: 12px; padding-left: 0px; border: 0px; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-stretch: inherit; font-size: 16px; line-height: inherit; font-family: Muli, -apple-system, system-ui, &quot; segoe=&quot;&quot; ui&quot;,=&quot;&quot; roboto,=&quot;&quot; &quot;noto=&quot;&quot; sans&quot;,=&quot;&quot; ubuntu,=&quot;&quot; &quot;droid=&quot;&quot; &quot;helvetica=&quot;&quot; neue&quot;,=&quot;&quot; arial,=&quot;&quot; sans-serif;=&quot;&quot; vertical-align:=&quot;&quot; baseline;=&quot;&quot; list-style:=&quot;&quot; none;=&quot;&quot; box-sizing:=&quot;&quot; inherit;=&quot;&quot; -webkit-tap-highlight-color:=&quot;&quot; transparent;=&quot;&quot; color:=&quot;&quot; rgb(33,=&quot;&quot; 33,=&quot;&quot; 33);&quot;=&quot;&quot;&gt;</p>\n<p>\n	&nbsp;</p>\n<ul>\n	<li style=\"margin: 0px 0px 0px 32px; padding: 0px 0px 4px; border: 0px; font: inherit; vertical-align: baseline; box-sizing: inherit; -webkit-tap-highlight-color: transparent; list-style: disc outside;\">\n		<span style=\"margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: 10pt; line-height: inherit; font-family: inherit; vertical-align: baseline; box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(0, 0, 0);\">持有急救證書 (可於入職後考取)</span></li>\n	<li style=\"margin: 0px 0px 0px 32px; padding: 0px 0px 4px; border: 0px; font: inherit; vertical-align: baseline; box-sizing: inherit; -webkit-tap-highlight-color: transparent; list-style: disc outside;\">\n		<span style=\"margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: 10pt; line-height: inherit; font-family: inherit; vertical-align: baseline; box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(0, 0, 0);\">持有保安人員許可證</span></li>\n	<li style=\"margin: 0px 0px 0px 32px; padding: 0px 0px 4px; border: 0px; font: inherit; vertical-align: baseline; box-sizing: inherit; -webkit-tap-highlight-color: transparent; list-style: disc outside;\">\n		<span style=\"margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: 10pt; line-height: inherit; font-family: inherit; vertical-align: baseline; box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(0, 0, 0);\">具基本電腦操作知識</span></li>\n</ul>\n', '<p>\n	&nbsp;</p>\n<p>\n	&lt;ul style=&quot;margin: 0px; padding-right: 0px; padding-bottom: 12px; padding-left: 0px; border: 0px; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-stretch: inherit; font-size: 16px; line-height: inherit; font-family: Muli, -apple-system, system-ui, &quot; segoe=&quot;&quot; ui&quot;,=&quot;&quot; roboto,=&quot;&quot; &quot;noto=&quot;&quot; sans&quot;,=&quot;&quot; ubuntu,=&quot;&quot; &quot;droid=&quot;&quot; &quot;helvetica=&quot;&quot; neue&quot;,=&quot;&quot; arial,=&quot;&quot; sans-serif;=&quot;&quot; vertical-align:=&quot;&quot; baseline;=&quot;&quot; list-style:=&quot;&quot; none;=&quot;&quot; box-sizing:=&quot;&quot; inherit;=&quot;&quot; -webkit-tap-highlight-color:=&quot;&quot; transparent;=&quot;&quot; color:=&quot;&quot; rgb(33,=&quot;&quot; 33,=&quot;&quot; 33);&quot;=&quot;&quot;&gt;</p>\n<p>\n	&nbsp;</p>\n<ul>\n	<li style=\"margin: 0px 0px 0px 32px; padding: 0px 0px 4px; border: 0px; font: inherit; vertical-align: baseline; box-sizing: inherit; -webkit-tap-highlight-color: transparent; list-style: disc outside;\">\n		<span style=\"margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: 10pt; line-height: inherit; font-family: inherit; vertical-align: baseline; box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(0, 0, 0);\">每月6天休息日</span></li>\n	<li style=\"margin: 0px 0px 0px 32px; padding: 0px 0px 4px; border: 0px; font: inherit; vertical-align: baseline; box-sizing: inherit; -webkit-tap-highlight-color: transparent; list-style: disc outside;\">\n		<span style=\"margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: 10pt; line-height: inherit; font-family: inherit; vertical-align: baseline; box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(0, 0, 0);\">酌情性花紅</span></li>\n	<li style=\"margin: 0px 0px 0px 32px; padding: 0px 0px 4px; border: 0px; font: inherit; vertical-align: baseline; box-sizing: inherit; -webkit-tap-highlight-color: transparent; list-style: disc outside;\">\n		<span style=\"margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: 10pt; line-height: inherit; font-family: inherit; vertical-align: baseline; box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(0, 0, 0);\">供膳食</span></li>\n	<li style=\"margin: 0px 0px 0px 32px; padding: 0px 0px 4px; border: 0px; font: inherit; vertical-align: baseline; box-sizing: inherit; -webkit-tap-highlight-color: transparent; list-style: disc outside;\">\n		<span style=\"margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: 10pt; line-height: inherit; font-family: inherit; vertical-align: baseline; box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(0, 0, 0);\">年假 12天、全薪侍產假、婚假及恩恤假</span></li>\n	<li style=\"margin: 0px 0px 0px 32px; padding: 0px 0px 4px; border: 0px; font: inherit; vertical-align: baseline; box-sizing: inherit; -webkit-tap-highlight-color: transparent; list-style: disc outside;\">\n		<span style=\"margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: 10pt; line-height: inherit; font-family: inherit; vertical-align: baseline; box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(0, 0, 0);\">醫療福利 (門診及住院)</span></li>\n	<li style=\"margin: 0px 0px 0px 32px; padding: 0px 0px 4px; border: 0px; font: inherit; vertical-align: baseline; box-sizing: inherit; -webkit-tap-highlight-color: transparent; list-style: disc outside;\">\n		<span style=\"margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: 10pt; line-height: inherit; font-family: inherit; vertical-align: baseline; box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(0, 0, 0);\">酒店餐飲優惠、海外酒店住宿優惠</span></li>\n	<li style=\"margin: 0px 0px 0px 32px; padding: 0px 0px 4px; border: 0px; font: inherit; vertical-align: baseline; box-sizing: inherit; -webkit-tap-highlight-color: transparent; list-style: disc outside;\">\n		<span style=\"margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: 10pt; line-height: inherit; font-family: inherit; vertical-align: baseline; box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(0, 0, 0);\">在職培訓及進修津貼</span></li>\n</ul>\n', '<p>\n	&nbsp;</p>\n<p>\n	&lt;ul style=&quot;margin: 0px; padding-right: 0px; padding-bottom: 12px; padding-left: 0px; border: 0px; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-stretch: inherit; font-size: 16px; line-height: inherit; font-family: Muli, -apple-system, system-ui, &quot; segoe=&quot;&quot; ui&quot;,=&quot;&quot; roboto,=&quot;&quot; &quot;noto=&quot;&quot; sans&quot;,=&quot;&quot; ubuntu,=&quot;&quot; &quot;droid=&quot;&quot; &quot;helvetica=&quot;&quot; neue&quot;,=&quot;&quot; arial,=&quot;&quot; sans-serif;=&quot;&quot; vertical-align:=&quot;&quot; baseline;=&quot;&quot; list-style:=&quot;&quot; none;=&quot;&quot; box-sizing:=&quot;&quot; inherit;=&quot;&quot; -webkit-tap-highlight-color:=&quot;&quot; transparent;=&quot;&quot; color:=&quot;&quot; rgb(33,=&quot;&quot; 33,=&quot;&quot; 33);&quot;=&quot;&quot;&gt;</p>\n<p>\n	&nbsp;</p>\n<ul>\n	<li style=\"margin: 0px 0px 0px 32px; padding: 0px 0px 4px; border: 0px; font: inherit; vertical-align: baseline; box-sizing: inherit; -webkit-tap-highlight-color: transparent; list-style: disc outside;\">\n		<span style=\"margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: 10pt; line-height: inherit; font-family: inherit; vertical-align: baseline; box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(0, 0, 0);\">每月6天休息日</span></li>\n	<li style=\"margin: 0px 0px 0px 32px; padding: 0px 0px 4px; border: 0px; font: inherit; vertical-align: baseline; box-sizing: inherit; -webkit-tap-highlight-color: transparent; list-style: disc outside;\">\n		<span style=\"margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: 10pt; line-height: inherit; font-family: inherit; vertical-align: baseline; box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(0, 0, 0);\">酌情性花紅</span></li>\n	<li style=\"margin: 0px 0px 0px 32px; padding: 0px 0px 4px; border: 0px; font: inherit; vertical-align: baseline; box-sizing: inherit; -webkit-tap-highlight-color: transparent; list-style: disc outside;\">\n		<span style=\"margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: 10pt; line-height: inherit; font-family: inherit; vertical-align: baseline; box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(0, 0, 0);\">供膳食</span></li>\n	<li style=\"margin: 0px 0px 0px 32px; padding: 0px 0px 4px; border: 0px; font: inherit; vertical-align: baseline; box-sizing: inherit; -webkit-tap-highlight-color: transparent; list-style: disc outside;\">\n		<span style=\"margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: 10pt; line-height: inherit; font-family: inherit; vertical-align: baseline; box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(0, 0, 0);\">年假 12天、全薪侍產假、婚假及恩恤假</span></li>\n	<li style=\"margin: 0px 0px 0px 32px; padding: 0px 0px 4px; border: 0px; font: inherit; vertical-align: baseline; box-sizing: inherit; -webkit-tap-highlight-color: transparent; list-style: disc outside;\">\n		<span style=\"margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: 10pt; line-height: inherit; font-family: inherit; vertical-align: baseline; box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(0, 0, 0);\">醫療福利 (門診及住院)</span></li>\n	<li style=\"margin: 0px 0px 0px 32px; padding: 0px 0px 4px; border: 0px; font: inherit; vertical-align: baseline; box-sizing: inherit; -webkit-tap-highlight-color: transparent; list-style: disc outside;\">\n		<span style=\"margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: 10pt; line-height: inherit; font-family: inherit; vertical-align: baseline; box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(0, 0, 0);\">酒店餐飲優惠、海外酒店住宿優惠</span></li>\n	<li style=\"margin: 0px 0px 0px 32px; padding: 0px 0px 4px; border: 0px; font: inherit; vertical-align: baseline; box-sizing: inherit; -webkit-tap-highlight-color: transparent; list-style: disc outside;\">\n		<span style=\"margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: 10pt; line-height: inherit; font-family: inherit; vertical-align: baseline; box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(0, 0, 0);\">在職培訓及進修津貼</span></li>\n</ul>\n', '<p>\n	<span style=\"margin: 0px; padding: 0px; border: 0px; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-stretch: inherit; font-size: 13.3333px; line-height: inherit; font-family: Arial, sans-serif; vertical-align: baseline; box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(0, 0, 0);\">更多有關酒店資訊，請瀏覽網頁：www.parkhotelgroup.com.</span>&lt;span style=&quot;color: rgb(0, 0, 0); font-family: Muli, -apple-system, system-ui, &quot; segoe=&quot;&quot; ui&quot;,=&quot;&quot; roboto,=&quot;&quot; &quot;noto=&quot;&quot; sans&quot;,=&quot;&quot; ubuntu,=&quot;&quot; &quot;droid=&quot;&quot; &quot;helvetica=&quot;&quot; neue&quot;,=&quot;&quot; arial,=&quot;&quot; sans-serif;=&quot;&quot; font-size:=&quot;&quot; 13.3333px;&quot;=&quot;&quot;&gt;&nbsp;</p>\n', '<p>\n	<span style=\"margin: 0px; padding: 0px; border: 0px; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-stretch: inherit; font-size: 13.3333px; line-height: inherit; font-family: Arial, sans-serif; vertical-align: baseline; box-sizing: inherit; -webkit-tap-highlight-color: transparent; color: rgb(0, 0, 0);\">更多有關酒店資訊，請瀏覽網頁：www.parkhotelgroup.com.</span>&lt;span style=&quot;color: rgb(0, 0, 0); font-family: Muli, -apple-system, system-ui, &quot; segoe=&quot;&quot; ui&quot;,=&quot;&quot; roboto,=&quot;&quot; &quot;noto=&quot;&quot; sans&quot;,=&quot;&quot; ubuntu,=&quot;&quot; &quot;droid=&quot;&quot; &quot;helvetica=&quot;&quot; neue&quot;,=&quot;&quot; arial,=&quot;&quot; sans-serif;=&quot;&quot; font-size:=&quot;&quot; 13.3333px;&quot;=&quot;&quot;&gt;&nbsp;</p>\n', NULL, 'transfer', 'active', '2019-03-16 07:10:17'),
+(15, 99, '123', '123', 'parttime', 1, 4, '', '', '', '', '123', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'transfer', 'active', '2019-03-16 08:16:52');
 
 -- --------------------------------------------------------
 
@@ -542,7 +570,15 @@ INSERT INTO `job_applicants` (`id`, `job_id`, `applicant_user_id`, `applied_at`,
 (1, 13, 6, '2019-03-11 05:44:08', NULL, '2019-03-11 05:44:33', '2019-03-11 05:44:33', 'cancelled', 'active'),
 (2, 11, 6, '2019-03-11 05:44:19', '2019-03-11 05:46:30', NULL, '2019-03-11 05:46:30', 'accepted_offer', 'active'),
 (3, 10, 6, '2019-03-11 05:46:42', NULL, NULL, '2019-03-11 05:46:42', 'submitted', 'active'),
-(4, 13, 4, '2019-03-11 06:13:55', NULL, NULL, '2019-03-11 06:13:55', 'submitted', 'active');
+(4, 13, 4, '2019-03-11 06:13:55', NULL, NULL, '2019-03-11 06:13:55', 'submitted', 'active'),
+(5, 3, 3, '2019-03-16 20:38:41', '2019-03-18 01:34:12', NULL, '2019-03-18 01:34:12', 'vacancy_filled', 'active'),
+(6, 2, 3, '2019-03-16 20:38:47', '2019-03-18 03:42:59', NULL, '2019-03-18 03:42:59', 'accepted_offer', 'active'),
+(7, 4, 3, '2019-03-16 20:38:53', NULL, NULL, '2019-03-16 20:38:53', 'submitted', 'active'),
+(8, 2, 4, '2019-03-16 20:42:11', NULL, NULL, '2019-03-16 20:42:11', 'submitted', 'active'),
+(9, 3, 4, '2019-03-16 20:42:17', '2019-03-18 02:03:23', NULL, '2019-03-18 02:03:23', 'offered', 'active'),
+(10, 2, 6, '2019-03-16 20:43:25', NULL, NULL, '2019-03-16 20:43:25', 'submitted', 'active'),
+(11, 3, 6, '2019-03-16 20:43:30', NULL, NULL, '2019-03-16 20:43:30', 'submitted', 'active'),
+(12, 1, 6, '2019-03-16 20:43:35', NULL, NULL, '2019-03-16 20:43:35', 'submitted', 'active');
 
 -- --------------------------------------------------------
 
@@ -662,12 +698,12 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `register_password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `update_mobile`, `update_mobile_code`, `remember_code`, `created_on`, `last_login`, `active`, `activated_at`, `mobile`, `info_updated`, `info_first_copy`, `remarks`) VALUES
-(1, '::1', '00000000', '$2y$08$CTTECmRGd1FdtRgHDrk6teoGAaPm30QcldGexBbiw8psREfYkmBfC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1551366538, 1552310531, 1, '2019-02-28 08:09:34', '00000000', 0, NULL, NULL),
+(1, '::1', '00000000', '$2y$08$CTTECmRGd1FdtRgHDrk6teoGAaPm30QcldGexBbiw8psREfYkmBfC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1551366538, 1552905809, 1, '2019-02-28 08:09:34', '00000000', 0, NULL, NULL),
 (2, '::1', '00010001', '$2y$08$pm2CW4sI4GbJMI8SBbS0e.MHYkF98KhkPZ1klhBKfGj3MIfgde4De', '8rSlgb2f4G', NULL, NULL, '3640', NULL, NULL, NULL, NULL, NULL, 1551591555, NULL, 0, NULL, '00010001', 0, NULL, NULL),
-(3, '::1', '11111111', '$2y$08$KTO4yMw34LqPI6VsiuSh5.XXghvAisv/hjVj2EF7n/GJ8yK3SZWJy', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1551599558, 1552113956, 1, '2019-03-03 00:53:28', '11111111', 1, '{\"name_zh\":\"\\u9673\\u5c0f\\u73cd\",\"name_en\":\"Janet Chan\",\"email\":\"janetchan@gmail.com\",\"gender\":\"female\",\"dob\":\"01-01-1990\",\"district_id\":1,\"address\":\"\",\"education_level\":\"post_secondary\",\"employment_status\":\"full_time\",\"related_experience\":\"none\",\"computer_skills\":\"[\\\"1\\\",\\\"2\\\",\\\"3\\\"]\",\"language_abilities\":\"[\\\"1\\\"]\",\"related_certs\":\"[\\\"1\\\"]\",\"id\":\"3\"}', NULL),
-(4, '::1', '12221222', '$2y$08$GkkF.fzwCw9QM7i28WPivO/O6KuBnPjq790nS4W1s5J/aZ8UWvyli', '7qZrlo1vi4', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1551599683, 1552136685, 1, '2019-03-03 00:57:14', '12221222', 0, NULL, NULL),
+(3, '::1', '11111111', '$2y$08$KTO4yMw34LqPI6VsiuSh5.XXghvAisv/hjVj2EF7n/GJ8yK3SZWJy', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1551599558, 1552920389, 1, '2019-03-03 00:53:28', '11111111', 1, '{\"name_zh\":\"\\u9673\\u5c0f\\u73cd\",\"name_en\":\"Janet Chan\",\"email\":\"janetchan@gmail.com\",\"gender\":\"female\",\"dob\":\"01-01-1990\",\"district_id\":1,\"address\":\"\",\"education_level\":\"post_secondary\",\"employment_status\":\"full_time\",\"related_experience\":\"none\",\"computer_skills\":\"[\\\"1\\\",\\\"2\\\",\\\"3\\\"]\",\"language_abilities\":\"[\\\"1\\\"]\",\"related_certs\":\"[\\\"1\\\"]\",\"id\":\"3\"}', NULL),
+(4, '::1', '12221222', '$2y$08$GkkF.fzwCw9QM7i28WPivO/O6KuBnPjq790nS4W1s5J/aZ8UWvyli', '7qZrlo1vi4', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1551599683, 1552793974, 1, '2019-03-03 00:57:14', '12221222', 1, '{\"name_zh\":\"\\u9673\\u5927\\u6587\",\"name_en\":\"Tai Man\",\"email\":\"taiman@email.com\",\"gender\":\"male\",\"dob\":\"2019-03-17\",\"education_level\":\"secondary\",\"employment_status\":\"unemployed\",\"related_experience\":\"none\",\"language_abilities\":\"[\\\"1\\\",\\\"2\\\"]\",\"related_certs\":\"[\\\"2\\\"]\"}', NULL),
 (5, '::1', '00020002', '$2y$08$9vRAjulsb0wh0Xm2kz.dj.b4NqsKin11cuTpQbZKVQJ50C/YDuw5m', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1551601740, 1551603050, 1, '2019-03-03 01:29:25', '00020002', 0, NULL, NULL),
-(6, '::1', '13331333', '$2y$08$VxdsiyHQwDvs7iRv4ePNNO6nA.eUfmL.wW/PIuZMkH93RXVvA6IKK', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1552109480, 1552124821, 1, '2019-03-08 22:31:45', '13331333', 0, NULL, NULL),
+(6, '::1', '13331333', '$2y$08$VxdsiyHQwDvs7iRv4ePNNO6nA.eUfmL.wW/PIuZMkH93RXVvA6IKK', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1552109480, 1552794155, 1, '2019-03-08 22:31:45', '13331333', 1, '{\"name_zh\":\"\\u9673\\u9673\",\"name_en\":\"Chan\",\"email\":\"chan@email.com\",\"gender\":\"female\",\"dob\":\"2019-03-17\",\"education_level\":\"primary\",\"employment_status\":\"full_time\",\"related_experience\":\"3_year_above\",\"language_abilities\":\"[\\\"1\\\",\\\"2\\\"]\",\"related_certs\":\"[\\\"2\\\",\\\"5\\\"]\"}', NULL),
 (7, '::1', '14441444', '$2y$08$sTOFmxZTp/gXTiw6jXGoB.6zR3KDavf2hjWctOtF6Bq4SoqOMuM0i', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1552109611, 1552124420, 1, '2019-03-08 22:33:41', '14441444', 0, NULL, NULL),
 (8, '::1', '00030003', '$2y$08$efqwwTOgaszd3J2ZM.c7HeiK3mh9FEVVmwsdtIMrxbJyB7yxSuIEW', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1552109804, 1552110371, 1, '2019-03-08 22:38:08', '00030003', 0, NULL, NULL),
 (9, '::1', '15551555', '$2y$08$sUcoyfQ4QJln7y0OP83egeNrtAZCxzKlH6NVg5RwBL9j5d5lteX/W', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1552117654, 1552123052, 1, '2019-03-09 00:48:06', '15551555', 0, NULL, NULL);
@@ -749,6 +785,12 @@ ALTER TABLE `api_limits`
 -- Indexes for table `api_logs`
 --
 ALTER TABLE `api_logs`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `applicant_feedbacks`
+--
+ALTER TABLE `applicant_feedbacks`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -912,6 +954,12 @@ ALTER TABLE `api_logs`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `applicant_feedbacks`
+--
+ALTER TABLE `applicant_feedbacks`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `applications`
 --
 ALTER TABLE `applications`
@@ -957,7 +1005,7 @@ ALTER TABLE `industries`
 -- AUTO_INCREMENT for table `jobs`
 --
 ALTER TABLE `jobs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `jobs_tags`
@@ -969,7 +1017,7 @@ ALTER TABLE `jobs_tags`
 -- AUTO_INCREMENT for table `job_applicants`
 --
 ALTER TABLE `job_applicants`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `language_abilities`
