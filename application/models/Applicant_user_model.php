@@ -28,11 +28,13 @@ class Applicant_user_model extends MY_Model {
 
 		$rating_sum = 0;
 		$feedback_count = count($feedbacks);
-		foreach ($feedbacks as $feedback)
-		{
-			$rating_sum += $feedback->rating;
+		if (!empty ($feedback_count)) {
+			foreach ($feedbacks as $feedback)
+			{
+				$rating_sum += $feedback->rating;
+			}
+			$data->avg_ratings = $rating_sum / $feedback_count;
 		}
-		$data->avg_ratings = $rating_sum / $feedback_count;
 
 		$fields = array('computer_skills', 'language_abilities', 'related_certs');
 		foreach ($fields as $field)
