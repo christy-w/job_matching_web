@@ -50,11 +50,10 @@ class Job_model extends MY_Model {
 		d.area AS district_area');
 
 		$this->db->join('districts AS d', 'jobs.district_id = d.id', 'LEFT');
-		$this->db->where('jobs.status', 'active');
 		$job =  parent::get_by(array('jobs.id' => $job_id));
 
 		// append employers
-        $this->load->model('employer_user_model', 'employers');
+		$this->load->model('employer_user_model', 'employers');
 		$job->employer = $this->employers->get_by_user_id($job->employer_user_id);
 
 		// append applications

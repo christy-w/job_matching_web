@@ -143,5 +143,70 @@ class Job extends API_Controller {
 		$created = $this->jobs->create_new($data);
 		empty($created) ? $this->error('Create failed') : $this->created();
 	}
+
+
+    /**
+	 * @SWG\Post(
+	 * 	path="/job/withdraw/{id}",
+	 * 	tags={"job"},
+	 * 	@SWG\Parameter(
+	 * 		in="header",
+	 * 		name="X-API-KEY",
+	 * 		description="",
+	 * 		default="",
+	 * 		required=false,
+	 * 		type="string"
+	 * 	),
+	* @SWG\Parameter(
+	* 		in="path",
+	* 		name="id",
+	* 		description="Job ID",
+	* 		required=true,
+	* 		type="integer"
+	* ),
+	 * 	@SWG\Response(
+	 * 		response="200",
+	 * 		description="Successful operation",
+	 * 		@SWG\Schema(type="string")
+	 * 	)
+	 * )
+	 */
+	public function withdraw_post($id)
+	{
+		$job = $this->jobs->get($id);
+		if ($job) {
+			$job->status = 'hidden';
+			$success = $this->jobs->update($id, $job);
+
+			// Update related applications
+			$this->load->model('Job_applicant_model', 'applications');
+			$applications = $this->applications->get_many_by(array('job_id' => $id));
+			if (!empty($applications)) 
+			{
+				foreach ($applications as $application) 
+				{
+					if ($application->application_status == 'submitted'
+					|| $application->application_status == 'in_progress' 
+					|| $application->application_status == 'offered')
+					{
+						$application_id = $application->id;
+						$application->updated_at = date('Y-m-d H:i:s');
+						$application->last_updated_at = date('Y-m-d H:i:s');
+						$application->application_status = 'withdrawn';
+						$success = $this->applications->update($application_id, $application);
+					}
+				}
+			}
+		} else {
+            $this->error('withdraw_failed');
+		}
+
+		if ($success)
+		{
+			$this->created();
+		} else {
+			$this->error('withdraw_failed');
+		}
+	}
 		
 }
