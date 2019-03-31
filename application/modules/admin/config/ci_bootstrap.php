@@ -98,6 +98,11 @@ $config['ci_bootstrap'] = array(
 				'Benefits'				=> 'system/benefit'
 			)
 		),
+		'about' => array(
+			'name'		=> 'About',
+			'url'		=> 'about/index/edit/1',
+			'icon'		=> 'fa fa-cog'
+		),
 		'panel' => array(
 			'name'		=> 'Admin Panel',
 			'url'		=> 'panel',
