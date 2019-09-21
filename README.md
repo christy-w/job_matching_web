@@ -1,7 +1,7 @@
 This is a student project which aims to provide a job matching service with preferences setting for fast searching and filtering with the frontend repo job_matching_app (https://github.com/christy0218/job_matching_app)
 
 Developed upon [CodeIgniter 3 Bootstrap] by Michael Chan (https://github.com/waifung0207/ci_bootstrap_3).
-Any unauthorized use or reproduction of this repo is forbidden.
+***Any unauthorized use or reproduction of this repo is forbidden.***
 
 ### Development Tools
 
